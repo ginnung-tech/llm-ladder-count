@@ -78,6 +78,7 @@ def main() -> None:
     manifest = {
         "title": "Counting ladder rungs in one photo: 10 multimodal LLMs, reasoning levels and prompts",
         "date": "2026-09-30",
+        "license": "CC0 1.0 Universal (public domain), all files",
         "api": "OpenRouter chat completions, https://openrouter.ai/api/v1",
         "image": {"file": IMAGE.relative_to(ROOT).as_posix(), "sha256": sha256(IMAGE),
                   "size_px": [1024, 768], "license": "CC0 (public domain)"},

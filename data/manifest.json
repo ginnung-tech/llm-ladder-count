@@ -1,6 +1,7 @@
 {
  "title": "Counting ladder rungs in one photo: 10 multimodal LLMs, reasoning levels and prompts",
  "date": "2026-09-30",
+ "license": "CC0 1.0 Universal (public domain), all files",
  "api": "OpenRouter chat completions, https://openrouter.ai/api/v1",
  "image": {
   "file": "data/image/ship-the-ship-haven-travel-vacation-62f2b5-1024.jpg",

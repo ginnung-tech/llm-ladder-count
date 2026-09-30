@@ -142,5 +142,6 @@ order (the seed is recorded on every line). The runner stops starting new calls 
 
 ## License
 
-Code: MIT (see `LICENSE`). Raw results and metadata (`data/raw`, `data/manifest.json`,
-`data/calls.csv`): CC BY 4.0. The photo: CC0 / public domain.
+Everything in this repository (the scripts, the raw results, the metadata and the photo) is
+dedicated to the public domain under CC0 1.0 Universal (see `LICENSE`). No attribution is
+required.
