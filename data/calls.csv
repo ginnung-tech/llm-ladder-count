@@ -1,0 +1,219 @@
+file,model,prompt,level,detail,max_tokens,repeat,status,count,within_11_pm_1,format_deviation,finish_reason,provider,prompt_tokens,completion_tokens,reasoning_tokens,cost_usd,latency_s,seed
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,high,high,24000,3,ok,13,False,,stop,OpenAI,971,710,703,0.04521,22.12,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,high,high,24000,0,ok,14,False,,stop,OpenAI,971,1079,1072,0.06366,28.64,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,high,high,24000,4,ok,14,False,,stop,OpenAI,971,1243,1236,0.07186,32.39,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,high,high,24000,2,ok,13,False,,stop,OpenAI,971,1128,1121,0.06611,33.58,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,high,high,24000,4,ok,13,False,,stop,OpenAI,971,1286,1279,0.07401,38.5,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,high,high,24000,2,ok,13,False,,stop,OpenAI,971,693,686,0.04436,18.06,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,high,high,24000,0,ok,13,False,,stop,OpenAI,971,1094,1087,0.06441,27.2,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,high,high,24000,4,ok,13,False,,stop,OpenAI,971,625,618,0.04096,19.57,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,high,high,24000,2,ok,14,False,,stop,OpenAI,971,1216,1209,0.07051,32.77,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,high,high,24000,3,ok,14,False,,stop,OpenAI,971,1013,1006,0.06036,28.82,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,high,high,24000,1,ok,13,False,,stop,OpenAI,971,1178,1171,0.06861,31.25,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,high,high,24000,0,ok,12,True,,stop,OpenAI,971,1521,1514,0.08576,40.74,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,high,high,24000,1,ok,13,False,,stop,OpenAI,971,985,978,0.05896,26.45,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,high,high,24000,1,ok,13,False,,stop,OpenAI,971,1025,1018,0.06096,27.19,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,medium,high,12000,2,ok,13,False,,stop,OpenAI,971,709,702,0.04516,19.8,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,medium,high,12000,4,ok,12,True,,stop,OpenAI,971,540,533,0.03671,21.29,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,high,high,24000,3,ok,12,True,,stop,OpenAI,971,2253,2246,0.12236,67.91,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,medium,high,12000,4,ok,14,False,,stop,OpenAI,971,785,778,0.04896,20.52,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,medium,high,12000,3,ok,13,False,,stop,OpenAI,971,503,496,0.03486,15.7,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,medium,high,12000,4,ok,13,False,,stop,OpenAI,971,523,516,0.03586,17.0,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,medium,high,12000,3,ok,13,False,,stop,OpenAI,971,578,571,0.03861,21.16,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,medium,high,12000,1,ok,13,False,,stop,OpenAI,971,357,350,0.02756,13.57,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,medium,high,12000,1,ok,13,False,,stop,OpenAI,971,469,462,0.03316,17.83,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,medium,high,12000,0,ok,13,False,,stop,OpenAI,971,621,614,0.04076,20.07,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,medium,high,12000,1,ok,14,False,,stop,OpenAI,971,666,659,0.04301,18.07,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,medium,high,12000,0,ok,12,True,,stop,OpenAI,971,339,332,0.02666,13.31,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,medium,high,12000,2,ok,12,True,,stop,OpenAI,971,483,476,0.03386,15.28,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,low,high,4000,2,ok,13,False,,stop,OpenAI,971,220,213,0.02071,8.1,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,low,high,4000,3,ok,14,False,,stop,OpenAI,971,312,305,0.02531,11.59,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,medium,high,12000,3,ok,13,False,,stop,OpenAI,971,405,398,0.02996,16.42,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,medium,high,12000,0,ok,13,False,,stop,OpenAI,971,522,515,0.03581,15.9,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,medium,high,12000,2,ok,12,True,,stop,OpenAI,971,765,758,0.04796,25.75,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,low,high,4000,3,ok,13,False,,stop,OpenAI,971,201,194,0.01976,8.35,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,low,high,4000,1,ok,13,False,,stop,OpenAI,971,229,222,0.02116,8.87,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,low,high,4000,0,ok,13,False,,stop,OpenAI,971,392,385,0.02931,13.82,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,low,high,4000,3,ok,12,True,,stop,OpenAI,971,332,325,0.02631,11.42,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,low,high,4000,1,ok,14,False,,stop,OpenAI,971,262,255,0.02281,10.06,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,low,high,4000,0,ok,14,False,,stop,OpenAI,971,291,284,0.02426,10.15,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,low,high,4000,4,ok,13,False,,stop,OpenAI,971,193,186,0.01936,8.24,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,low,high,4000,4,ok,12,True,,stop,OpenAI,971,195,188,0.01946,9.05,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,low,high,4000,2,ok,14,False,,stop,OpenAI,971,219,212,0.02066,8.75,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,none,high,2100,1,error,,,,,,,,,,0.42,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,low,high,4000,4,ok,13,False,,stop,OpenAI,971,348,341,0.02711,14.02,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,low,high,4000,2,ok,13,False,,stop,OpenAI,971,163,156,0.01786,7.36,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,none,high,2100,0,error,,,,,,,,,,0.38,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,none,high,2100,4,error,,,,,,,,,,0.33,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,none,high,2100,2,error,,,,,,,,,,0.78,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,none,high,2100,3,error,,,,,,,,,,0.59,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,none,high,2100,2,error,,,,,,,,,,0.38,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,none,high,2100,3,error,,,,,,,,,,0.8,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,low,high,4000,1,ok,13,False,,stop,OpenAI,971,342,335,0.02681,10.74,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,none,high,2100,3,error,,,,,,,,,,0.3,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,none,high,2100,4,error,,,,,,,,,,0.68,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,none,high,2100,2,error,,,,,,,,,,0.45,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,none,high,2100,0,error,,,,,,,,,,0.43,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,none,high,2100,1,error,,,,,,,,,,0.3,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,none,high,2100,1,error,,,,,,,,,,0.33,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_21,none,high,2100,4,error,,,,,,,,,,0.35,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_11,low,high,4000,0,ok,13,False,,stop,OpenAI,971,188,181,0.01911,7.29,120204
+reasoning-20260930-042404.jsonl,openai/gpt-6-astra,example_2,none,high,2100,0,error,,,,,,,,,,0.6,120204
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,high,default,24000,0,ok,13,False,,stop,OpenAI,973,857,850,0.05258,22.47,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,high,default,24000,3,ok,13,False,,stop,OpenAI,973,779,772,0.04868,21.75,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,high,default,24000,1,ok,13,False,,stop,OpenAI,973,892,885,0.05433,25.6,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,high,default,24000,2,ok,14,False,,stop,OpenAI,973,1093,1086,0.06438,31.97,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,high,default,24000,4,ok,13,False,,stop,OpenAI,973,1510,1503,0.08523,39.42,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,medium,default,12000,3,ok,12,True,,stop,OpenAI,973,503,496,0.03488,16.37,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,medium,default,12000,0,ok,13,False,,stop,OpenAI,973,438,431,0.03163,13.63,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,medium,default,12000,2,ok,12,True,,stop,OpenAI,973,800,793,0.04973,22.32,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,low,default,4000,1,ok,12,True,,stop,OpenAI,973,194,187,0.01943,8.15,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,medium,default,12000,4,ok,14,False,,stop,OpenAI,973,797,790,0.04958,23.54,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,low,default,4000,4,ok,13,False,,stop,OpenAI,973,274,267,0.02343,11.23,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,medium,default,12000,1,ok,13,False,,stop,OpenAI,973,678,671,0.04363,20.08,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,low,default,4000,0,ok,13,False,,stop,OpenAI,973,175,168,0.01848,8.89,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,low,default,4000,2,ok,13,False,,stop,OpenAI,973,275,268,0.02348,12.01,570410
+reasoning-20260930-043124.jsonl,openai/gpt-6-astra,original,low,default,4000,3,ok,13,False,,stop,OpenAI,973,309,302,0.02518,13.33,570410
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,high,high,24000,2,ok,20,False,,stop,Claude Platform on AWS,1106,400,397,0.012424,9.32,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,high,high,24000,0,ok,11,True,,stop,Claude Platform on AWS,1106,462,459,0.013664,9.84,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,high,high,24000,0,ok,20,False,,stop,Claude Platform on AWS,1106,683,680,0.018084,14.45,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,high,high,24000,1,ok,10,True,,stop,Claude Platform on AWS,1106,656,653,0.017544,12.74,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,high,high,24000,0,ok,16,False,,stop,Claude Platform on AWS,1106,515,512,0.014724,13.13,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,high,high,24000,3,ok,22,False,,stop,Claude Platform on AWS,1106,568,565,0.015784,12.07,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,high,high,24000,4,ok,21,False,,stop,Claude Platform on AWS,1106,510,505,0.014624,10.61,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,high,high,24000,2,ok,24,False,,stop,Claude Platform on AWS,1106,576,573,0.015944,12.02,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,high,high,24000,1,ok,11,True,,stop,Claude Platform on AWS,1106,772,769,0.019864,14.63,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,high,high,24000,3,ok,25,False,,stop,Claude Platform on AWS,1106,589,586,0.016204,11.33,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,high,high,24000,3,ok,17,False,,stop,Claude Platform on AWS,1106,565,560,0.015724,11.44,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,high,high,24000,4,ok,22,False,,stop,Claude Platform on AWS,1106,443,440,0.013284,9.74,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,high,high,24000,2,ok,12,True,,stop,Claude Platform on AWS,1106,633,630,0.017084,12.46,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,high,high,24000,1,ok,23,False,,stop,Claude Platform on AWS,1106,455,452,0.013524,10.18,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,high,high,24000,4,ok,23,False,,stop,Claude Platform on AWS,1106,523,520,0.014884,11.73,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,medium,high,12000,0,ok,25,False,,stop,Claude Platform on AWS,1106,502,499,0.014464,10.81,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,medium,high,12000,4,ok,10,True,,stop,Claude Platform on AWS,1106,379,376,0.012004,9.02,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,medium,high,12000,3,ok,20,False,,stop,Claude Platform on AWS,1106,461,456,0.013644,10.91,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,medium,high,12000,4,ok,20,False,,stop,Claude Platform on AWS,1106,409,406,0.012604,9.26,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,medium,high,12000,3,ok,9,False,,stop,Claude Platform on AWS,1106,383,380,0.012084,9.49,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,medium,high,12000,2,ok,13,False,,stop,Claude Platform on AWS,1106,504,501,0.014504,12.28,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,medium,high,12000,0,ok,11,True,,stop,Claude Platform on AWS,1106,444,441,0.013304,9.63,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,medium,high,12000,2,ok,9,False,,stop,Claude Platform on AWS,1106,357,354,0.011564,9.17,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,medium,high,12000,1,ok,10,True,,stop,Claude Platform on AWS,1106,373,370,0.011884,8.36,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,medium,high,12000,0,ok,21,False,,stop,Claude Platform on AWS,1106,459,456,0.013604,8.69,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,medium,high,12000,1,ok,24,False,,stop,Claude Platform on AWS,1106,240,237,0.009224,10.31,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,medium,high,12000,4,ok,11,True,,stop,Claude Platform on AWS,1106,596,593,0.016344,12.43,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,medium,high,12000,3,ok,25,False,,stop,Claude Platform on AWS,1106,364,361,0.011704,9.41,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,medium,high,12000,1,ok,20,False,,stop,Claude Platform on AWS,1106,332,329,0.011064,8.82,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,medium,high,12000,2,ok,22,False,,stop,Claude Platform on AWS,1106,534,531,0.015104,10.56,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,low,high,4000,2,ok,8,False,,stop,Claude Platform on AWS,1106,181,178,0.008044,6.78,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,low,high,4000,4,ok,16,False,,stop,Claude Platform on AWS,1106,286,283,0.010144,8.02,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,low,high,4000,4,ok,23,False,,stop,Claude Platform on AWS,1106,259,256,0.009604,6.78,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,low,high,4000,1,ok,9,False,,stop,Claude Platform on AWS,1106,216,213,0.008744,6.96,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,low,high,4000,1,ok,17,False,,stop,Claude Platform on AWS,1106,217,214,0.008764,8.14,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,low,high,4000,3,ok,22,False,,stop,Claude Platform on AWS,1106,265,262,0.009724,8.4,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,low,high,4000,2,ok,22,False,,stop,Claude Platform on AWS,1106,271,268,0.009844,7.49,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,low,high,4000,0,ok,12,True,,stop,Claude Platform on AWS,1106,363,360,0.011684,8.1,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,low,high,4000,2,ok,20,False,,stop,Claude Platform on AWS,1106,267,264,0.009764,8.49,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,low,high,4000,4,ok,9,False,,stop,Claude Platform on AWS,1106,232,229,0.009064,10.34,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_2,low,high,4000,3,ok,13,False,,stop,Claude Platform on AWS,1106,194,191,0.008304,6.89,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,low,high,4000,3,ok,20,False,,stop,Claude Platform on AWS,1106,330,327,0.011024,7.93,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_21,low,high,4000,0,ok,23,False,,stop,Claude Platform on AWS,1106,329,326,0.011004,8.1,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,low,high,4000,1,ok,12,True,,stop,Claude Platform on AWS,1106,327,324,0.010964,11.93,555223
+reasoning-20260930-043624.jsonl,anthropic/claude-opus-5.5,example_11,low,high,4000,0,ok,21,False,,stop,Claude Platform on AWS,1106,250,247,0.009424,8.63,555223
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,high,default,24000,3,ok,24,False,,stop,Claude Platform on AWS,1106,582,577,0.016064,12.18,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,high,default,24000,0,ok,20,False,,stop,Claude Platform on AWS,1106,603,598,0.016484,11.74,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,high,default,24000,1,ok,12,True,,stop,Claude Platform on AWS,1106,531,526,0.015044,10.99,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,high,default,24000,4,ok,10,True,,stop,Claude Platform on AWS,1106,425,420,0.012924,9.68,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,high,default,24000,2,ok,9,False,,stop,Claude Platform on AWS,1106,569,566,0.015804,12.05,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,medium,default,12000,3,ok,12,True,,stop,Claude Platform on AWS,1106,455,452,0.013524,9.91,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,medium,default,12000,4,ok,11,True,,stop,Claude Platform on AWS,1106,510,507,0.014624,9.43,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,medium,default,12000,0,ok,18,False,,stop,Claude Platform on AWS,1106,441,436,0.013244,10.44,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,medium,default,12000,1,ok,9,False,,stop,Claude Platform on AWS,1106,332,329,0.011064,8.18,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,medium,default,12000,2,ok,20,False,,stop,Claude Platform on AWS,1106,402,397,0.012464,10.98,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,low,default,4000,0,ok,9,False,,stop,Claude Platform on AWS,1106,258,255,0.009584,7.3,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,low,default,4000,4,ok,20,False,,stop,Claude Platform on AWS,1106,279,274,0.010004,7.74,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,low,default,4000,3,ok,11,True,,stop,Claude Platform on AWS,1106,219,216,0.008804,6.95,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,low,default,4000,2,ok,9,False,,stop,Claude Platform on AWS,1106,357,354,0.011564,8.35,977985
+reasoning-20260930-043804.jsonl,anthropic/claude-opus-5.5,original,low,default,4000,1,ok,18,False,,stop,Claude Platform on AWS,1106,307,304,0.010564,8.23,977985
+reasoning-20260930-044245.jsonl,openai/gpt-6-astra,example_11,low,default,2000,1,ok,12,True,,stop,OpenAI,971,240,233,0.02171,10.89,858135
+reasoning-20260930-044245.jsonl,openai/gpt-6-astra,example_11,low,default,2000,4,ok,12,True,,stop,OpenAI,971,227,220,0.02106,8.79,858135
+reasoning-20260930-044245.jsonl,openai/gpt-6-astra,example_11,low,default,2000,2,ok,13,False,,stop,OpenAI,971,190,183,0.01921,8.61,858135
+reasoning-20260930-044245.jsonl,openai/gpt-6-astra,example_11,low,default,2000,0,ok,13,False,,stop,OpenAI,971,396,389,0.02951,14.91,858135
+reasoning-20260930-044245.jsonl,openai/gpt-6-astra,example_11,low,default,2000,3,ok,13,False,,stop,OpenAI,971,617,610,0.04056,22.37,858135
+reasoning-20260930-044310.jsonl,openai/gpt-6-astra,example_11,low,default,1000,4,ok,14,False,,stop,OpenAI,971,162,155,0.01781,8.78,245257
+reasoning-20260930-044310.jsonl,openai/gpt-6-astra,example_11,low,default,1000,1,ok,14,False,,stop,OpenAI,971,283,276,0.02386,10.81,245257
+reasoning-20260930-044310.jsonl,openai/gpt-6-astra,example_11,low,default,1000,0,ok,13,False,,stop,OpenAI,971,278,271,0.02361,11.41,245257
+reasoning-20260930-044310.jsonl,openai/gpt-6-astra,example_11,low,default,1000,3,ok,14,False,,stop,OpenAI,971,272,265,0.02331,10.9,245257
+reasoning-20260930-044310.jsonl,openai/gpt-6-astra,example_11,low,default,1000,2,ok,8,False,,stop,OpenAI,971,422,415,0.03081,18.69,245257
+reasoning-20260930-044333.jsonl,openai/gpt-6-astra,example_11,low,default,100,1,ok,,,empty answer,length,OpenAI,971,100,100,0.01471,9.12,142463
+reasoning-20260930-044333.jsonl,openai/gpt-6-astra,example_11,low,default,100,4,ok,,,empty answer,length,OpenAI,971,100,100,0.01471,7.61,142463
+reasoning-20260930-044333.jsonl,openai/gpt-6-astra,example_11,low,default,100,2,ok,,,empty answer,length,OpenAI,971,100,100,0.01471,7.88,142463
+reasoning-20260930-044333.jsonl,openai/gpt-6-astra,example_11,low,default,100,0,ok,,,empty answer,length,OpenAI,971,100,100,0.01471,7.61,142463
+reasoning-20260930-044333.jsonl,openai/gpt-6-astra,example_11,low,default,100,3,ok,,,empty answer,length,OpenAI,971,100,100,0.01471,8.42,142463
+reasoning-20260930-044350.jsonl,anthropic/claude-opus-5.5,example_11,low,default,2000,2,ok,16,False,,stop,Claude Platform on AWS,1106,264,261,0.009704,8.21,839577
+reasoning-20260930-044350.jsonl,anthropic/claude-opus-5.5,example_11,low,default,2000,0,ok,25,False,,stop,Claude Platform on AWS,1106,279,276,0.010004,7.65,839577
+reasoning-20260930-044350.jsonl,anthropic/claude-opus-5.5,example_11,low,default,2000,4,ok,25,False,,stop,Claude Platform on AWS,1106,253,250,0.009484,10.57,839577
+reasoning-20260930-044350.jsonl,anthropic/claude-opus-5.5,example_11,low,default,2000,3,ok,20,False,,stop,Claude Platform on AWS,1106,256,253,0.009544,7.68,839577
+reasoning-20260930-044350.jsonl,anthropic/claude-opus-5.5,example_11,low,default,2000,1,ok,24,False,,stop,Claude Platform on AWS,1106,273,270,0.009884,9.96,839577
+reasoning-20260930-044406.jsonl,anthropic/claude-opus-5.5,example_11,low,default,1000,1,ok,11,True,,stop,Claude Platform on AWS,1106,303,300,0.010484,7.98,412237
+reasoning-20260930-044406.jsonl,anthropic/claude-opus-5.5,example_11,low,default,1000,4,ok,17,False,,stop,Claude Platform on AWS,1106,239,236,0.009204,9.51,412237
+reasoning-20260930-044406.jsonl,anthropic/claude-opus-5.5,example_11,low,default,1000,3,ok,16,False,,stop,Claude Platform on AWS,1106,281,278,0.010044,8.25,412237
+reasoning-20260930-044406.jsonl,anthropic/claude-opus-5.5,example_11,low,default,1000,0,ok,22,False,,stop,Claude Platform on AWS,1106,255,252,0.009524,7.83,412237
+reasoning-20260930-044406.jsonl,anthropic/claude-opus-5.5,example_11,low,default,1000,2,ok,22,False,,stop,Claude Platform on AWS,1106,224,221,0.008904,9.03,412237
+reasoning-20260930-044424.jsonl,anthropic/claude-opus-5.5,example_11,low,default,100,4,ok,,,empty answer,length,Claude Platform on AWS,1106,100,100,0.006424,7.73,337682
+reasoning-20260930-044424.jsonl,anthropic/claude-opus-5.5,example_11,low,default,100,3,ok,,,empty answer,length,Claude Platform on AWS,1106,100,99,0.006424,5.97,337682
+reasoning-20260930-044424.jsonl,anthropic/claude-opus-5.5,example_11,low,default,100,2,ok,,,empty answer,length,Claude Platform on AWS,1106,100,100,0.006424,7.14,337682
+reasoning-20260930-044424.jsonl,anthropic/claude-opus-5.5,example_11,low,default,100,0,ok,,,empty answer,length,Claude Platform on AWS,1106,100,100,0.006424,6.11,337682
+reasoning-20260930-044424.jsonl,anthropic/claude-opus-5.5,example_11,low,default,100,1,ok,,,empty answer,length,Claude Platform on AWS,1106,100,100,0.006424,6.55,337682
+reasoning-20260930-050429.jsonl,openai/gpt-6-astra,guided,xhigh,high,32000,4,ok,12,True,,stop,OpenAI,1174,4106,4054,0.2199675,99.2,32519
+reasoning-20260930-050429.jsonl,openai/gpt-6-astra,guided,xhigh,high,32000,3,ok,12,True,,stop,OpenAI,1174,5063,5010,0.254351,130.25,32519
+reasoning-20260930-050429.jsonl,openai/gpt-6-astra,guided,xhigh,high,32000,1,ok,12,True,,stop,OpenAI,1174,2497,2444,0.126051,61.03,32519
+reasoning-20260930-050429.jsonl,openai/gpt-6-astra,guided,xhigh,high,32000,0,ok,12,True,,stop,OpenAI,1174,1535,1484,0.077951,39.69,32519
+reasoning-20260930-050429.jsonl,openai/gpt-6-astra,guided,xhigh,high,32000,2,ok,12,True,,stop,OpenAI,1174,6224,6173,0.312401,166.07,32519
+reasoning-20260930-050855.jsonl,anthropic/claude-opus-5.5,guided,max,high,32000,0,ok,10,True,,stop,Claude Platform on AWS,1391,887,525,0.023304,13.86,606974
+reasoning-20260930-050855.jsonl,anthropic/claude-opus-5.5,guided,max,high,32000,2,ok,19,False,,stop,Claude Platform on AWS,1391,1202,718,0.029604,17.71,606974
+reasoning-20260930-050855.jsonl,anthropic/claude-opus-5.5,guided,max,high,32000,3,ok,22,False,,stop,Claude Platform on AWS,1391,958,483,0.024724,14.45,606974
+reasoning-20260930-050855.jsonl,anthropic/claude-opus-5.5,guided,max,high,32000,1,ok,20,False,,stop,Claude Platform on AWS,1391,905,475,0.023664,14.49,606974
+reasoning-20260930-050855.jsonl,anthropic/claude-opus-5.5,guided,max,high,32000,4,ok,20,False,,stop,Claude Platform on AWS,1391,987,561,0.025304,14.79,606974
+reasoning-20260930-051532.jsonl,anthropic/claude-fable-5.1,guided,max,high,32000,2,ok,13,False,,stop,Anthropic,1391,1204,881,0.07411,23.18,517204
+reasoning-20260930-051532.jsonl,anthropic/claude-fable-5.1,guided,max,high,32000,4,ok,20,False,,stop,Anthropic,1391,1440,951,0.08591,23.97,517204
+reasoning-20260930-051532.jsonl,anthropic/claude-fable-5.1,guided,max,high,32000,3,ok,17,False,,stop,Anthropic,1391,1289,920,0.07836,22.82,517204
+reasoning-20260930-051532.jsonl,anthropic/claude-fable-5.1,guided,max,high,32000,1,ok,11,True,,stop,Anthropic,1391,1107,839,0.06926,21.55,517204
+reasoning-20260930-051532.jsonl,anthropic/claude-fable-5.1,guided,max,high,32000,0,ok,17,False,,stop,Anthropic,1391,1090,725,0.06841,22.0,517204
+reasoning-20260930-052556.jsonl,minimax/minimax-m3,guided,xhigh,high,32000,4,ok,12,True,,stop,Venice,821,592,396,0.00092838,5.24,843921
+reasoning-20260930-052556.jsonl,minimax/minimax-m3,guided,xhigh,high,32000,0,ok,10,True,,stop,CoreWeave,956,629,447,0.00082372,5.82,843921
+reasoning-20260930-052556.jsonl,minimax/minimax-m3,guided,xhigh,high,32000,2,ok,10,True,,stop,Venice,821,521,372,0.0006747,5.86,843921
+reasoning-20260930-052556.jsonl,minimax/minimax-m3,guided,xhigh,high,32000,3,ok,14,False,,stop,Venice,821,576,349,0.0007407,5.09,843921
+reasoning-20260930-052556.jsonl,minimax/minimax-m3,guided,xhigh,high,32000,1,ok,10,True,,stop,Venice,821,2040,1737,0.0024975,13.81,843921
+reasoning-20260930-052618.jsonl,xiaomi/mimo-v2.6-pro,guided,xhigh,high,32000,1,ok,12,True,,stop,Xiaomi,1022,2870,2625,0.00294147,82.43,681978
+reasoning-20260930-052618.jsonl,xiaomi/mimo-v2.6-pro,guided,xhigh,high,32000,3,ok,19,False,,stop,GMICloud,1022,3678,3443,0.00364443,91.35,681978
+reasoning-20260930-052618.jsonl,xiaomi/mimo-v2.6-pro,guided,xhigh,high,32000,2,ok,20,False,,stop,GMICloud,1022,2419,2265,0.002162924,91.31,681978
+reasoning-20260930-052618.jsonl,xiaomi/mimo-v2.6-pro,guided,xhigh,high,32000,0,ok,11,True,,stop,GMICloud,1022,1168,917,0.001074554,31.63,681978
+reasoning-20260930-052618.jsonl,xiaomi/mimo-v2.6-pro,guided,xhigh,high,32000,4,ok,18,False,,stop,GMICloud,1022,7591,7387,0.006662564,200.76,681978
+reasoning-20260930-053111.jsonl,deepseek/deepseek-v4.1-flash,guided,xhigh,high,32000,3,ok,16,False,,stop,Together,771,10671,10609,0.0130365,27.98,638151
+reasoning-20260930-053111.jsonl,deepseek/deepseek-v4.1-flash,guided,xhigh,high,32000,4,ok,15,False,,stop,Together,771,6162,6104,0.007399908,18.12,638151
+reasoning-20260930-053111.jsonl,deepseek/deepseek-v4.1-flash,guided,xhigh,high,32000,2,ok,20,False,,stop,Together,771,16682,16611,0.020023908,49.34,638151
+reasoning-20260930-053111.jsonl,deepseek/deepseek-v4.1-flash,guided,xhigh,high,32000,1,ok,12,True,,stop,Wafer,770,10252,10173,0.00454861,95.89,638151
+reasoning-20260930-053111.jsonl,deepseek/deepseek-v4.1-flash,guided,xhigh,high,32000,0,ok,13,False,,stop,Together,771,10578,10509,0.012699108,27.49,638151
+reasoning-20260930-053542.jsonl,google/gemini-3.8-flash,guided,xhigh,high,32000,3,ok,13,False,,stop,Google,1306,31042,30716,0.117387,198.77,365213
+reasoning-20260930-053542.jsonl,google/gemini-3.8-flash,guided,xhigh,high,32000,4,ok,13,False,,stop,Google,1306,29136,28823,0.1102395,228.96,365213
+reasoning-20260930-053542.jsonl,google/gemini-3.8-flash,guided,xhigh,high,32000,2,error,,,,error,Google,0,0,0,0,15.41,365213
+reasoning-20260930-053542.jsonl,google/gemini-3.8-flash,guided,xhigh,high,32000,1,error,,,,error,Google,521,949,0,0,152.03,365213
+reasoning-20260930-053542.jsonl,google/gemini-3.8-flash,guided,xhigh,high,32000,0,error,,,,error,Google,521,2175,0,0,194.14,365213
+reasoning-20260930-054303.jsonl,openai/gpt-6.1-sol,guided,xhigh,high,32000,2,ok,13,False,,stop,OpenAI,1174,2725,2672,0.0273731,58.06,142354
+reasoning-20260930-054303.jsonl,openai/gpt-6.1-sol,guided,xhigh,high,32000,3,ok,12,True,,stop,OpenAI,1174,5109,5057,0.0540235,110.35,142354
+reasoning-20260930-054303.jsonl,openai/gpt-6.1-sol,guided,xhigh,high,32000,4,ok,12,True,,stop,OpenAI,1174,3720,3670,0.0373231,78.2,142354
+reasoning-20260930-054303.jsonl,openai/gpt-6.1-sol,guided,xhigh,high,32000,1,ok,13,False,,stop,OpenAI,1174,3396,3346,0.0340831,72.37,142354
+reasoning-20260930-054303.jsonl,openai/gpt-6.1-sol,guided,xhigh,high,32000,0,ok,13,False,,stop,OpenAI,1174,6245,6194,0.0625731,133.73,142354
+reasoning-20260930-054735.jsonl,meta/muse-spark-1.3,guided,xhigh,high,32000,3,ok,24,False,,stop,Meta,1228,7239,6887,0.03230075,64.66,896027
+reasoning-20260930-054735.jsonl,meta/muse-spark-1.3,guided,xhigh,high,32000,0,ok,26,False,,stop,Meta,1228,5771,5452,0.02482645,56.55,896027
+reasoning-20260930-054735.jsonl,meta/muse-spark-1.3,guided,xhigh,high,32000,2,ok,35,False,,stop,Meta,1228,13658,13300,0.0583462,145.37,896027
+reasoning-20260930-054735.jsonl,meta/muse-spark-1.3,guided,xhigh,high,32000,1,ok,28,False,,stop,Meta,1228,6571,6309,0.02822645,62.67,896027
+reasoning-20260930-054735.jsonl,meta/muse-spark-1.3,guided,xhigh,high,32000,4,ok,23,False,,stop,Meta,1228,12551,12246,0.05364145,140.44,896027
+reasoning-20260930-055158.jsonl,x-ai/grok-4.7,guided,xhigh,high,32000,0,ok,23,False,,stop,xAI,2294,6187,6110,0.039982,91.53,963884
+reasoning-20260930-055158.jsonl,x-ai/grok-4.7,guided,xhigh,high,32000,1,ok,16,False,,stop,xAI,2294,10885,10840,0.066634,174.39,963884
+reasoning-20260930-055158.jsonl,x-ai/grok-4.7,guided,xhigh,high,32000,2,ok,16,False,,stop,xAI,2294,19138,19111,0.116152,289.32,963884
+reasoning-20260930-055158.jsonl,x-ai/grok-4.7,guided,xhigh,high,32000,3,ok,15,False,,stop,xAI,2294,3361,3283,0.02149,72.76,963884
+reasoning-20260930-055158.jsonl,x-ai/grok-4.7,guided,xhigh,high,32000,4,ok,22,False,,stop,xAI,2294,3921,3917,0.026386,59.16,963884
+reasoning-20260930-055800.jsonl,google/gemini-3.8-flash,guided,xhigh,high,64000,1,error,,,,,Google,,,,,195.35,314135
+reasoning-20260930-055800.jsonl,google/gemini-3.8-flash,guided,xhigh,high,64000,2,ok,13,False,,stop,Google,1306,35147,34944,0.13278075,239.88,314135
+reasoning-20260930-055800.jsonl,google/gemini-3.8-flash,guided,xhigh,high,64000,0,ok,9,False,,stop,Google,1306,32505,32209,0.12287325,235.46,314135

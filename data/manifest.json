@@ -1,0 +1,533 @@
+{
+ "title": "Counting ladder rungs in one photo: 10 multimodal LLMs, reasoning levels and prompts",
+ "date": "2026-09-30",
+ "api": "OpenRouter chat completions, https://openrouter.ai/api/v1",
+ "image": {
+  "file": "data/image/ship-the-ship-haven-travel-vacation-62f2b5-1024.jpg",
+  "sha256": "ced1316202c50b3d6c4088e72a3c6c18e50d7c302a04365432f01b507f408fb2",
+  "size_px": [
+   1024,
+   768
+  ],
+  "license": "CC0 (public domain)"
+ },
+ "prompts": {
+  "original": "I can see several rope ladders leading to the outlooks on the masts. on the front most rope ladder how many horizoltal red steps are there to the outlook basket. return only an int like `2`",
+  "example_2": "I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `2`",
+  "example_21": "I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `21`",
+  "example_11": "I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `11`",
+  "guided": "Here is a photo of a pirate ship moored at a wooden pier, seen from the pier. The bow, with the carved figurehead and the long bowsprit, points to the left side of the photo. I want you to count the steps (rungs) of one rope ladder: the front-most rope ladder, the one closest to the camera. It runs diagonally from the lower right, where it is fastened to the deck in front of the raised rear deckhouse, just to the right of the \"PIRAT\" name board on the hull, up to the left towards the front mast, the mast nearest the bow. Its upper end is high on that mast, below the lookout basket. Its steps are red horizontal ropes. At the bottom of this ladder there is a white horizontal anchoring bar. Do not count that one. At the top, the ladder narrows and comes to a point in a knot. Do not count that knot either. Only count the red horizontal rope steps in between. I am bad at counting. Give me the step count and a short description of how you counted and reasoned. End your answer with a final line in exactly this form: COUNT: <number>"
+ },
+ "author_count": 11,
+ "scoring": "a parsed count within 10-12 (11 +/- 1) is a hit",
+ "total_calls": 218,
+ "total_errors": 19,
+ "total_cost_usd": 6.4797,
+ "files": [
+  {
+   "file": "data/raw/reasoning-20260930-042404.jsonl",
+   "sha256": "1bec586dc3255dd6c1ea01aa5613bcef29638c948da05d8121054db3c0f8c742",
+   "experiment": "1: GPT-6 Astra, prompts example_2/21/11 x reasoning none/low/medium/high (none is rejected by the API)",
+   "calls": 60,
+   "errors": 15,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "example_11",
+    "example_2",
+    "example_21"
+   ],
+   "levels": [
+    "high",
+    "low",
+    "medium",
+    "none"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    2100,
+    4000,
+    12000,
+    24000
+   ],
+   "cost_usd": 1.897
+  },
+  {
+   "file": "data/raw/reasoning-20260930-043124.jsonl",
+   "sha256": "a5a34dda541359a03d14976f2cad75d6026b62442fe77569094560898ea6a089",
+   "experiment": "2: GPT-6 Astra, original phase-1 prompt, default image detail, low/medium/high",
+   "calls": 15,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "original"
+   ],
+   "levels": [
+    "high",
+    "low",
+    "medium"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    4000,
+    12000,
+    24000
+   ],
+   "cost_usd": 0.6247
+  },
+  {
+   "file": "data/raw/reasoning-20260930-043624.jsonl",
+   "sha256": "275ac5c2849a5d61bca1af5408872240c24fdf483bedab64ae838a309fee5358",
+   "experiment": "1: Claude Opus 5.5, prompts example_2/21/11 x reasoning low/medium/high",
+   "calls": 45,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "example_11",
+    "example_2",
+    "example_21"
+   ],
+   "levels": [
+    "high",
+    "low",
+    "medium"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    4000,
+    12000,
+    24000
+   ],
+   "cost_usd": 0.5726
+  },
+  {
+   "file": "data/raw/reasoning-20260930-043804.jsonl",
+   "sha256": "3dd22c5d3faa8cd164e8be058df76c3c42e33a367ea0d8ac1128a5c47e94ac27",
+   "experiment": "2: Claude Opus 5.5, original phase-1 prompt, default image detail, low/medium/high",
+   "calls": 15,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "original"
+   ],
+   "levels": [
+    "high",
+    "low",
+    "medium"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    4000,
+    12000,
+    24000
+   ],
+   "cost_usd": 0.1918
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044245.jsonl",
+   "sha256": "d3b5480af0eef106c5d9caeefbf25b4ec7b897a8f778490c5782215583ac5547",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    2000
+   ],
+   "cost_usd": 0.1321
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044310.jsonl",
+   "sha256": "837cf1a12c0f15d0e3c2f29cf9d265d49a64bbd3489e78f4ab8da979a24502bb",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    1000
+   ],
+   "cost_usd": 0.1194
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044333.jsonl",
+   "sha256": "63b3e85a60ea4b485cba1d7352017b022804af4fe39bba1d60e69548390df25c",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    100
+   ],
+   "cost_usd": 0.0736
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044350.jsonl",
+   "sha256": "800ac12505a8394502e8ea63652b931ab7e7f75b08e9eeefa380556fb00104d9",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    2000
+   ],
+   "cost_usd": 0.0486
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044406.jsonl",
+   "sha256": "6d03cdc807a997864f94e82ffc9fdbdbcd11c0d14d5806d6547e7dc925a0b2c1",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    1000
+   ],
+   "cost_usd": 0.0482
+  },
+  {
+   "file": "data/raw/reasoning-20260930-044424.jsonl",
+   "sha256": "65db76387e69623ad161b5664822f62695ec71821366328290d6285751a9add0",
+   "experiment": "3: output-cap test, example_11, low reasoning, default detail",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "example_11"
+   ],
+   "levels": [
+    "low"
+   ],
+   "detail": [
+    "default"
+   ],
+   "max_tokens": [
+    100
+   ],
+   "cost_usd": 0.0321
+  },
+  {
+   "file": "data/raw/reasoning-20260930-050429.jsonl",
+   "sha256": "cc6752229e7d3ce6fabafb2730ca4211b9c83179d5df90728c392dfe4368f196",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6-astra"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.9907
+  },
+  {
+   "file": "data/raw/reasoning-20260930-050855.jsonl",
+   "sha256": "d8a4a53c06eaf033d8599830dce14642e803490b2abef38415a340cb7c9008a0",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-opus-5.5"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "max"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.1266
+  },
+  {
+   "file": "data/raw/reasoning-20260930-051532.jsonl",
+   "sha256": "71c02fac1c0ea22dfa6f4effa36ed468c3d3be50b34fd3b50c15af81af0bc2d9",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "anthropic/claude-fable-5.1"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "max"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.376
+  },
+  {
+   "file": "data/raw/reasoning-20260930-052556.jsonl",
+   "sha256": "53f17ac6b9490958cb56d649f122ccabfdd0ac2061c16456bd61f1d2b5a953ae",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "minimax/minimax-m3"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.0057
+  },
+  {
+   "file": "data/raw/reasoning-20260930-052618.jsonl",
+   "sha256": "26e594d7db79743f359ba086b15184ce3c4dfa989b9979639a3036fe9117294f",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "xiaomi/mimo-v2.6-pro"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.0165
+  },
+  {
+   "file": "data/raw/reasoning-20260930-053111.jsonl",
+   "sha256": "9a2ee4aa4e7e2cca6df04d909cf1054712f788d44bd2880c6fca72b34027c6a1",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "deepseek/deepseek-v4.1-flash"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.0577
+  },
+  {
+   "file": "data/raw/reasoning-20260930-053542.jsonl",
+   "sha256": "a851ca3e3f774c8e5e215454896c5dc2eb1ea7ace18cfc1714190fd6266a68f5",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 3,
+   "models": [
+    "google/gemini-3.8-flash"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.2276
+  },
+  {
+   "file": "data/raw/reasoning-20260930-054303.jsonl",
+   "sha256": "7b71239f773335792d47f0b597aaed65397ce0f3b7ede13baefd415ca28a392c",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "openai/gpt-6.1-sol"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.2154
+  },
+  {
+   "file": "data/raw/reasoning-20260930-054735.jsonl",
+   "sha256": "fdcbc20fa0e24c1faa50db1c7d75d9d8b389c891fabf9d9b48e23b2f0755a3be",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "meta/muse-spark-1.3"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.1973
+  },
+  {
+   "file": "data/raw/reasoning-20260930-055158.jsonl",
+   "sha256": "0ce198e5acc53c2cc4b70b460613f6593dfc56bfcc7e227566638da5159c5df5",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 5,
+   "errors": 0,
+   "models": [
+    "x-ai/grok-4.7"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    32000
+   ],
+   "cost_usd": 0.2706
+  },
+  {
+   "file": "data/raw/reasoning-20260930-055800.jsonl",
+   "sha256": "b0da927aacd2c4246cc96e2210727b77c1dfc8c0e3c3e61e749b9cdeb2aa7e56",
+   "experiment": "4: guided prompt, maximum reasoning, image detail high",
+   "calls": 3,
+   "errors": 1,
+   "models": [
+    "google/gemini-3.8-flash"
+   ],
+   "prompts": [
+    "guided"
+   ],
+   "levels": [
+    "xhigh"
+   ],
+   "detail": [
+    "high"
+   ],
+   "max_tokens": [
+    64000
+   ],
+   "cost_usd": 0.2557
+  }
+ ]
+}
