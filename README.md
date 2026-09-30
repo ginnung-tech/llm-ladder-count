@@ -9,6 +9,9 @@ It accompanies the post *"Worth more than a thousand &lt;tokens&gt;? Are LLMs le
 ([ginnung.tech](https://ginnung.tech/worth-more-than-a-thousand-tokens-179020/)). This is a
 small, informal experiment, not a benchmark. Read the limitations before drawing conclusions.
 
+**Report:** [`report/ladder-count-report.pdf`](report/ladder-count-report.pdf) documents the design reasoning,
+every prompt, full results tables and every answer to the guided prompt. It is generated from `data/`.
+
 ## The task
 
 One photo (`data/image/`, 1024 × 768, public domain / CC0) of a replica pirate ship. The question
@@ -93,6 +96,9 @@ scripts/
   run_reasoning_probe.py   the runner used for every call in data/raw
   run_image_probe.py       phase-1 script; imported for the API URL, the image path and the original prompt
   build_metadata.py        rebuilds data/manifest.json and data/calls.csv from data/raw
+  build_report.py          rebuilds report/ladder-count-report.html from data/ (print it to PDF with Chrome/Edge)
+report/
+  ladder-count-report.pdf  the written report; .html is its source
 data/
   image/                   the photo (CC0)
   raw/*.jsonl              one JSON line per call: settings, full answer or error, usage, cost, latency
@@ -131,6 +137,10 @@ python scripts/run_reasoning_probe.py --model anthropic/claude-opus-5.5 --prompt
 
 # Rebuild the metadata from data/raw
 python scripts/build_metadata.py
+
+# Rebuild the report, then print it to PDF
+python scripts/build_report.py
+chrome --headless --no-pdf-header-footer --print-to-pdf=report/ladder-count-report.pdf report/ladder-count-report.html
 ```
 
 `none` was dropped from the script's levels after GPT-6 Astra rejected it. The 15 rejected calls

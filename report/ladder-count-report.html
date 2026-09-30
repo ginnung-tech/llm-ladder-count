@@ -1,0 +1,643 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Counting ladder rungs in one photo</title><style>
+@page { size: A4; margin: 20mm 18mm 20mm 18mm;
+  @bottom-center { content: counter(page) " / " counter(pages); font: 8.5pt 'Segoe UI', sans-serif; color: #777; }
+  @top-right { content: "Counting ladder rungs in one photo"; font: 8.5pt 'Segoe UI', sans-serif; color: #999; } }
+@page :first { @top-right { content: none; } }
+html { font: 10.5pt/1.45 Georgia, 'Times New Roman', serif; color: #1a1a1a; background: #fff; }
+body { margin: 0; }
+h1 { font: 600 22pt/1.2 'Segoe UI', sans-serif; margin: 0 0 4pt; }
+h2 { font: 600 14pt/1.3 'Segoe UI', sans-serif; margin: 22pt 0 6pt; border-bottom: 1px solid #ccc; padding-bottom: 3pt;
+     break-after: avoid; }
+h3 { font: 600 11.5pt/1.3 'Segoe UI', sans-serif; margin: 14pt 0 4pt; break-after: avoid; }
+h4 { font: 600 10pt/1.3 'Segoe UI', sans-serif; margin: 12pt 0 4pt; break-after: avoid; color: #333; }
+p, li { margin: 0 0 6pt; } ul, ol { padding-left: 16pt; margin: 0 0 8pt; }
+.subtitle { font: 12pt/1.4 'Segoe UI', sans-serif; color: #444; margin-bottom: 10pt; }
+.meta { font: 9pt/1.5 'Segoe UI', sans-serif; color: #555; margin-bottom: 14pt; }
+.abstract { background: #f5f3ee; border-left: 3px solid #8a7f6a; padding: 8pt 11pt; margin: 10pt 0 6pt; }
+.abstract p:last-child { margin-bottom: 0; }
+code, pre, .id, .hash { font-family: Consolas, 'Courier New', monospace; }
+code { font-size: 9pt; background: #f2f2f2; padding: 0 2pt; border-radius: 2pt; }
+.id { font-size: 7.5pt; color: #777; } .hash { font-size: 6.8pt; word-break: break-all; color: #444; }
+.muted { color: #888; } .small, .small td, .small th { font-size: 8pt; }
+.small code, p.small code { font-size: 7.3pt; background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt; table-layout: fixed;
+        font: 8.6pt/1.35 'Segoe UI', sans-serif; }
+th { text-align: left; font-weight: 600; border-bottom: 1.2px solid #444; padding: 3pt 4pt; vertical-align: bottom; }
+td { border-bottom: 0.5px solid #ddd; padding: 3pt 4pt; vertical-align: top; }
+tr { break-inside: avoid; } thead { display: table-header-group; }
+.params td:first-child { width: 28%; font-weight: 600; }
+.prompt { margin: 6pt 0 10pt; break-inside: avoid; }
+.plabel { font: 9pt 'Segoe UI', sans-serif; color: #444; margin-bottom: 2pt; }
+pre { white-space: pre-wrap; word-wrap: break-word; font-size: 8.6pt; line-height: 1.4; margin: 0;
+      background: #fafafa; border: 0.5px solid #ddd; padding: 5pt 7pt; }
+.answer { margin: 0 0 7pt; break-inside: avoid; }
+.ahead { font: 8.3pt 'Segoe UI', sans-serif; color: #444; margin-bottom: 1.5pt; }
+.answer pre { font-size: 7.9pt; }
+h3.appx { border-top: 1px solid #ccc; padding-top: 6pt; }
+.pagebreak { break-before: page; }
+.note { font: 8.8pt/1.45 'Segoe UI', sans-serif; color: #444; }
+</style></head><body>
+
+<h1>Counting ladder rungs in one photo</h1>
+<div class="subtitle">Ten multimodal language models, three reasoning levels, five prompts and one rope ladder</div>
+<div class="meta">Ginnung · runs made 2026-09-30 · 218 API calls to 10 models ·
+total cost $6.48<br>Data and scripts: <a href="https://github.com/ginnung-tech/llm-ladder-count">https://github.com/ginnung-tech/llm-ladder-count</a> (CC0) · Background article:
+<a href="https://ginnung.tech/worth-more-than-a-thousand-tokens-179020/">ginnung.tech</a></div>
+
+<div class="abstract">
+<p><b>Question.</b> Can current general-purpose multimodal language models count the red rope steps on one
+rope ladder in a single photo, and does more reasoning, a different prompt, or a precise description help?</p>
+<p><b>Design.</b> One 1024 × 768 photo; the author counts 11 steps (12 if the white anchoring bar at the bottom
+is included), and any answer from 10 to 12 is scored as a hit. Experiments 1–3 ran GPT-6 Astra and Claude Opus 5.5
+over reasoning levels, the number used as a format example in the prompt, the original phase-1 wording and the
+output cap. Experiment 4 gave ten models a long description of exactly which ladder to count and what to leave
+out, with maximum reasoning, high image detail and a large output budget. Each condition ran 5 times.</p>
+<p><b>Results.</b> GPT-6 Astra is consistent but too high: its median answer is 13 and
+11 / 60 (18%) of its answers in experiments 1–2 are within 11 ± 1; it answered 11 in
+0 of all its calls. Claude Opus 5.5 answers between 8 and 25, and its answers
+move with the example number in the prompt (median 11 with <code>2</code>,
+23 with <code>21</code>). Raising reasoning effort did not make either model
+more accurate. In experiment 4, 16 / 49 (33%) valid answers across ten models are within
+11 ± 1, and only GPT-6 Astra is within tolerance in all five runs (answering 12 each time). The models' written
+explanations describe careful counts whether the count is right or far off.</p>
+</div>
+
+<h2>1. Background</h2>
+<p>A first round of testing (phase 1, 2026-09-22/23), described in the background article, asked GPT-6 Astra the
+question in the original, informally written prompt reproduced in section 4. GPT-6 Astra
+answered mostly 12. Readers asked for a more rigorous follow-up: more models, several reasoning levels, prompt
+variations, repeated runs, and an answer to the objection that the prompt was ambiguous or sloppy. This report
+documents that follow-up (phase 2). All of its calls were made on 2026-09-30.</p>
+<p>This is a small, informal experiment about one image and one question. It is not a benchmark and does not
+support claims about visual ability in general.</p>
+
+<h2>2. Test object and ground truth</h2>
+<p>The photo (<code>data/image/</code>, public domain) shows a replica pirate ship moored at a wooden pier, seen
+from the pier, with the bow and bowsprit to the left. Several rope ladders (shrouds with ratlines) run from the
+deck up to the masts; at least five of them have red horizontal rope steps. The ladder in question is the
+front-most one, closest to the camera, running diagonally from the deck at the lower right, just right of the
+“PIRAT” name board, up to the left towards the front mast.</p>
+<p><b>Ground truth.</b> The author counts <b>11</b> red horizontal steps between a white anchoring bar at the
+bottom and the knot where the ladder narrows to a point at the top. Some readers count 12 by including the white
+bar. The scoring therefore accepts <b>10–12 (11 ± 1)</b> as a hit, which covers both readings and a one-step
+slip. This tolerance was chosen after phase 1, not fixed before any data was seen. The ground truth is a
+single human count.</p>
+
+<h2>3. Method</h2>
+<h3>3.1 Request settings</h3>
+<table class="data params"><colgroup><col style="width:24%"><col style="width:76%"></colgroup><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Endpoint</td><td>OpenRouter chat completions, <code>POST https://openrouter.ai/api/v1/chat/completions</code></td></tr><tr><td>Message</td><td>One user message: the prompt text first, then the image as a base64 JPEG data URL. No system prompt, no conversation history.</td></tr><tr><td>Reasoning</td><td><code>reasoning: {"effort": level}</code> for <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>; for Claude models in experiment 4, <code>reasoning: {"max_tokens": 24000}</code> (a 24,000-token thinking budget).</td></tr><tr><td>Output cap (<code>max_tokens</code>)</td><td>low 4,000, medium 12,000, high 24,000, xhigh 32,000; experiment 3 overrides it with 2,000 / 1,000 / 100; the Gemini retry in experiment 4 used 64,000.</td></tr><tr><td>Image detail</td><td><code>detail: "high"</code> for the cleaned and guided prompts; the field omitted (provider default) for the original prompt and in experiment 3, as in phase 1.</td></tr><tr><td>Sampling</td><td>Temperature, top-p and every other sampling setting left at provider defaults.</td></tr><tr><td>Accounting</td><td><code>usage: {"include": true}</code>: the reply carries prompt, completion and reasoning tokens and the billed cost, which are stored per call.</td></tr><tr><td>Concurrency</td><td>5 parallel workers by default (fewer in some experiment-4 runs), the first requests started 2 s apart, conditions in a seeded random order. The seed is stored on every row.</td></tr><tr><td>Repeats</td><td>5 per condition. Each call is independent; nothing is cached or reused between calls.</td></tr></tbody></table>
+<h3>3.2 Parsing and scoring</h3>
+<p>Every identifiable answer is counted, and any deviation from the requested format is recorded. The rules, in
+order (from <code>parse_answer</code> in <code>scripts/run_reasoning_probe.py</code>):</p>
+<ol>
+<li>If the answer contains a line <code>COUNT: n</code> (the guided prompt asks for one), the last such line is
+the count.</li>
+<li>A bare integer, optionally in backticks or followed by a full stop, is the count.</li>
+<li>Otherwise, if the text contains exactly one distinct number, or one number written as an English word
+(zero to thirty), that is the count, noted as a deviation.</li>
+<li>An empty answer or an answer with several different numbers and no <code>COUNT</code> line has no count.</li>
+</ol>
+<p>In practice every non-empty answer in this data was either a bare integer or had a <code>COUNT</code> line;
+rules 3 and 4 were never needed except for empty answers. A count is a <b>hit</b> if it lies in 10–12.
+Calls that failed at the API or returned no text are reported separately and are not counted as misses.</p>
+
+<h3>3.3 Experiments</h3>
+<table class="data"><colgroup><col style="width:4%"><col style="width:27%"><col style="width:14%"><col style="width:15%"><col style="width:14%"><col style="width:7%"><col style="width:10%"><col style="width:6%"></colgroup><thead><tr><th>#</th><th>Question</th><th>Models</th><th>Prompts</th><th>Reasoning</th><th>Detail</th><th>Output cap</th><th>Calls</th></tr></thead><tbody><tr><td>1</td><td>Does reasoning effort help, and does the example number in the prompt leak into the answer?</td><td>GPT-6 Astra, Claude Opus 5.5</td><td><code>example_2</code>, <code>example_21</code>, <code>example_11</code></td><td>low, medium, high (+ none for Astra, rejected)</td><td>high</td><td>4k / 12k / 24k</td><td>105</td></tr><tr><td>2</td><td>How do the models answer the original phase-1 prompt, typos included?</td><td>GPT-6 Astra, Claude Opus 5.5</td><td><code>original</code></td><td>low, medium, high</td><td>default</td><td>4k / 12k / 24k</td><td>30</td></tr><tr><td>3</td><td>Does a tight output budget change the answer?</td><td>GPT-6 Astra, Claude Opus 5.5</td><td><code>example_11</code></td><td>low</td><td>default</td><td>2,000 / 1,000 / 100</td><td>30</td></tr><tr><td>4</td><td>With every help we could give, can any model count the ladder?</td><td>10 models</td><td><code>guided</code></td><td>xhigh effort, or 24k thinking budget for Claude</td><td>high</td><td>32k (Gemini retry 64k)</td><td>53</td></tr></tbody></table>
+
+<h2>4. Design reasoning</h2>
+<p>The design was drafted in response to criticism of phase 1 and reviewed before any call was made. The choices,
+and the reason for each:</p>
+<ul>
+<li><b>A cleaned prompt stem.</b> The original prompt has typos (“horizoltal”, “outlook basket”) and no question
+mark, which critics could blame for the answers. The stem used in experiment 1 fixes these, names the ladder as
+“front-most”, uses “lookout basket”, and asks a proper question. Everything else is kept short, as in phase 1.</li>
+<li><b>The original prompt, unchanged.</b> Kept verbatim, typos included, with the image detail left at the
+default, so experiment 2 is directly comparable with phase 1. It is imported from the phase-1 script rather than
+copied, so it cannot drift.</li>
+<li><b>Three example numbers.</b> The phrase “return only an int like `2`” shows the format, but it also puts a
+number next to the question. Three otherwise identical prompts use <code>2</code> (far below the true count),
+<code>21</code> (far above) and <code>11</code> (the true count). A model that reads the count off the image should
+give the same answers to all three. If answers move with the example, the example is leaking into the count. The
+<code>11</code> variant also asks whether handing the model the right number is enough to get it back.</li>
+<li><b>Reasoning levels.</b> Low, medium and high effort ask whether more thinking improves the count. “None” was
+planned too, but GPT-6 Astra rejects it (“Reasoning is mandatory for this endpoint”), so it was dropped after the
+first file; the 15 rejected calls are kept in the data.</li>
+<li><b>Highest image detail.</b> For the cleaned and guided prompts the image is sent with
+<code>detail: "high"</code>, the highest resolution setting OpenRouter exposes, so that low resolution cannot
+explain a wrong count. The image itself is never modified; an upscaled copy was considered and rejected.</li>
+<li><b>Output cap.</b> Experiment 3 asks whether a tight token budget changes the answer, and at what point the
+answer disappears entirely.</li>
+<li><b>Five repeats.</b> Five runs per condition show the spread of answers. They are not enough to estimate
+rates precisely, and the report does not attempt significance tests.</li>
+<li><b>The guided prompt.</b> To answer the objection that the task was ambiguous, experiment 4 describes the
+ladder by several independent cues (bow direction, the name board, the rear deckhouse, the front mast, “closest to
+the camera”), says exactly what not to count (the white bar, the top knot), invites the model to explain how it
+counted, and asks for a machine-readable last line. The draft was corrected three times during review: an early
+claim that it was “the only red rope ladder” was removed, because at least five ladders have red steps; the top
+was described as a knot where the ladder comes to a point; and a description of the ladder as leading to the
+basket was reworded to position only, since these ladders are not access ladders. Every model got its maximum
+reasoning setting, high image detail and a 32,000-token output cap.</li>
+<li><b>Model choice.</b> Experiment 4 covers current frontier models from OpenAI, Anthropic, Google, xAI and
+Meta, and three open-weight models (MiniMax-M3, MiMo-V2.6-Pro, DeepSeek V4.1 Flash). A GLM model was considered,
+but the top GLM-5.3 model takes no image input and was left out.</li>
+</ul>
+<p><b>What the design does not control:</b> sampling temperature (provider defaults), the provider's internal
+image preprocessing, the meaning of “low” / “high” across vendors, and model version (OpenRouter does not expose
+one). There is one image and one human counter, and no blinding.</p>
+
+<h2>5. Prompts</h2>
+<p>Exact texts, as sent. The image follows the text in the same message.</p>
+<div class="prompt"><div class="plabel"><code>original</code> — Phase-1 prompt, verbatim (typos kept on purpose). Used in experiment 2.</div><pre>I can see several rope ladders leading to the outlooks on the masts. on the front most rope ladder how many horizoltal red steps are there to the outlook basket. return only an int like `2`</pre></div>
+<div class="prompt"><div class="plabel"><code>example_2</code> — Cleaned stem, example <code>2</code>. Experiment 1.</div><pre>I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `2`</pre></div>
+<div class="prompt"><div class="plabel"><code>example_21</code> — Cleaned stem, example <code>21</code>. Experiment 1.</div><pre>I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `21`</pre></div>
+<div class="prompt"><div class="plabel"><code>example_11</code> — Cleaned stem, example <code>11</code> (the author's count). Experiments 1 and 3.</div><pre>I can see several rope ladders leading to the outlooks on the masts. On the front-most rope ladder how many horizontal red steps are there to the lookout basket? return only an int like `11`</pre></div>
+<div class="prompt"><div class="plabel"><code>guided</code> — Guided prompt: location, exclusions, explanation and a <code>COUNT:</code> line. Experiment 4.</div><pre>Here is a photo of a pirate ship moored at a wooden pier, seen from the pier. The bow, with the carved figurehead and the long bowsprit, points to the left side of the photo. I want you to count the steps (rungs) of one rope ladder: the front-most rope ladder, the one closest to the camera. It runs diagonally from the lower right, where it is fastened to the deck in front of the raised rear deckhouse, just to the right of the &quot;PIRAT&quot; name board on the hull, up to the left towards the front mast, the mast nearest the bow. Its upper end is high on that mast, below the lookout basket. Its steps are red horizontal ropes. At the bottom of this ladder there is a white horizontal anchoring bar. Do not count that one. At the top, the ladder narrows and comes to a point in a knot. Do not count that knot either. Only count the red horizontal rope steps in between. I am bad at counting. Give me the step count and a short description of how you counted and reasoned. End your answer with a final line in exactly this form: COUNT: &lt;number&gt;</pre></div>
+
+<h2 class="pagebreak">6. Results</h2>
+<h3>6.1 Overview</h3>
+<table class="data"><colgroup><col style="width:4%"><col style="width:32%"><col style="width:8%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:15%"><col style="width:11%"></colgroup><thead><tr><th>#</th><th>Experiment</th><th>Calls</th><th>Valid counts</th><th>API errors</th><th>Empty answers</th><th>Within ± 1</th><th>Cost</th></tr></thead><tbody><tr><td>1</td><td>Reasoning level × example number</td><td>105</td><td>90</td><td>15</td><td>0</td><td>18 / 90 (20%)</td><td>$2.47</td></tr><tr><td>2</td><td>Original phase-1 prompt</td><td>30</td><td>30</td><td>0</td><td>0</td><td>8 / 30 (27%)</td><td>$0.82</td></tr><tr><td>3</td><td>Output cap</td><td>30</td><td>20</td><td>0</td><td>10</td><td>3 / 20 (15%)</td><td>$0.45</td></tr><tr><td>4</td><td>Guided prompt, maximum reasoning</td><td>53</td><td>49</td><td>4</td><td>0</td><td>16 / 49 (33%)</td><td>$2.74</td></tr><tr><td></td><td><b>Total</b></td><td><b>218</b></td><td><b>189</b></td><td><b>19</b></td><td><b>10</b></td><td><b>45 / 189 (24%)</b></td><td><b>$6.48</b></td></tr></tbody></table>
+<p class="note">“Valid counts” excludes API errors and empty answers. “Within ± 1” is out of the valid counts.</p>
+
+<h3>6.2 Experiments 1 and 2: reasoning level × prompt</h3>
+<p>Every condition, 5 calls each. Counts are sorted; bold marks a hit (10–12).</p>
+<h4>GPT-6 Astra</h4>
+<table class="data"><colgroup><col style="width:13%"><col style="width:9%"><col style="width:8%"><col style="width:30%"><col style="width:7%"><col style="width:12%"><col style="width:11%"><col style="width:10%"></colgroup><thead><tr><th>Prompt</th><th>Reasoning</th><th>Detail</th><th>Counts (sorted; bold = within 11 ± 1)</th><th>Median</th><th>Within ± 1</th><th>Mean reasoning tokens</th><th>Cost</th></tr></thead><tbody><tr><td><code>example_2</code></td><td>none</td><td>high</td><td><span class=muted>all 5 calls rejected: HTTP 400 “Reasoning is mandatory”</span></td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td><code>example_2</code></td><td>low</td><td>high</td><td><b>12</b>, 13, 13, 14, 14</td><td>13</td><td>1 / 5 (20%)</td><td>253</td><td>$0.11</td></tr><tr><td><code>example_2</code></td><td>medium</td><td>high</td><td><b>12</b>, <b>12</b>, <b>12</b>, 13, 13</td><td>12</td><td>3 / 5 (60%)</td><td>452</td><td>$0.16</td></tr><tr><td><code>example_2</code></td><td>high</td><td>high</td><td><b>12</b>, 13, 13, 13, 13</td><td>13</td><td>1 / 5 (20%)</td><td>1,158</td><td>$0.34</td></tr><tr><td><code>example_21</code></td><td>none</td><td>high</td><td><span class=muted>all 5 calls rejected: HTTP 400 “Reasoning is mandatory”</span></td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td><code>example_21</code></td><td>low</td><td>high</td><td>13, 13, 13, 14, 14</td><td>13</td><td>0 / 5 (0%)</td><td>316</td><td>$0.13</td></tr><tr><td><code>example_21</code></td><td>medium</td><td>high</td><td>13, 13, 13, 14, 14</td><td>13</td><td>0 / 5 (0%)</td><td>630</td><td>$0.21</td></tr><tr><td><code>example_21</code></td><td>high</td><td>high</td><td><b>12</b>, 13, 14, 14, 14</td><td>14</td><td>1 / 5 (20%)</td><td>1,348</td><td>$0.39</td></tr><tr><td><code>example_11</code></td><td>none</td><td>high</td><td><span class=muted>all 5 calls rejected: HTTP 400 “Reasoning is mandatory”</span></td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td><code>example_11</code></td><td>low</td><td>high</td><td><b>12</b>, 13, 13, 13, 13</td><td>13</td><td>1 / 5 (20%)</td><td>188</td><td>$0.10</td></tr><tr><td><code>example_11</code></td><td>medium</td><td>high</td><td><b>12</b>, 13, 13, 13, 13</td><td>13</td><td>1 / 5 (20%)</td><td>550</td><td>$0.19</td></tr><tr><td><code>example_11</code></td><td>high</td><td>high</td><td>13, 13, 13, 13, 14</td><td>13</td><td>0 / 5 (0%)</td><td>883</td><td>$0.27</td></tr><tr><td><code>original</code></td><td>low</td><td>default</td><td><b>12</b>, 13, 13, 13, 13</td><td>13</td><td>1 / 5 (20%)</td><td>238</td><td>$0.11</td></tr><tr><td><code>original</code></td><td>medium</td><td>default</td><td><b>12</b>, <b>12</b>, 13, 13, 14</td><td>13</td><td>2 / 5 (40%)</td><td>636</td><td>$0.21</td></tr><tr><td><code>original</code></td><td>high</td><td>default</td><td>13, 13, 13, 13, 14</td><td>13</td><td>0 / 5 (0%)</td><td>1,019</td><td>$0.31</td></tr></tbody></table>
+<h4>Claude Opus 5.5</h4>
+<table class="data"><colgroup><col style="width:13%"><col style="width:9%"><col style="width:8%"><col style="width:30%"><col style="width:7%"><col style="width:12%"><col style="width:11%"><col style="width:10%"></colgroup><thead><tr><th>Prompt</th><th>Reasoning</th><th>Detail</th><th>Counts (sorted; bold = within 11 ± 1)</th><th>Median</th><th>Within ± 1</th><th>Mean reasoning tokens</th><th>Cost</th></tr></thead><tbody><tr><td><code>example_2</code></td><td>low</td><td>high</td><td>8, 9, 9, <b>12</b>, 13</td><td>9</td><td>1 / 5 (20%)</td><td>234</td><td>$0.05</td></tr><tr><td><code>example_2</code></td><td>medium</td><td>high</td><td>9, 9, <b>10</b>, <b>10</b>, 21</td><td>10</td><td>2 / 5 (40%)</td><td>387</td><td>$0.06</td></tr><tr><td><code>example_2</code></td><td>high</td><td>high</td><td><b>11</b>, <b>12</b>, 16, 17, 21</td><td>16</td><td>2 / 5 (40%)</td><td>595</td><td>$0.08</td></tr><tr><td><code>example_21</code></td><td>low</td><td>high</td><td>17, 20, 22, 23, 23</td><td>22</td><td>0 / 5 (0%)</td><td>264</td><td>$0.05</td></tr><tr><td><code>example_21</code></td><td>medium</td><td>high</td><td>13, 20, 24, 25, 25</td><td>24</td><td>0 / 5 (0%)</td><td>401</td><td>$0.06</td></tr><tr><td><code>example_21</code></td><td>high</td><td>high</td><td><b>11</b>, 22, 23, 24, 25</td><td>23</td><td>1 / 5 (20%)</td><td>502</td><td>$0.07</td></tr><tr><td><code>example_11</code></td><td>low</td><td>high</td><td><b>12</b>, 16, 20, 21, 22</td><td>20</td><td>1 / 5 (20%)</td><td>290</td><td>$0.05</td></tr><tr><td><code>example_11</code></td><td>medium</td><td>high</td><td><b>11</b>, <b>11</b>, 20, 20, 22</td><td>20</td><td>2 / 5 (40%)</td><td>470</td><td>$0.07</td></tr><tr><td><code>example_11</code></td><td>high</td><td>high</td><td><b>10</b>, 20, 20, 22, 23</td><td>20</td><td>1 / 5 (20%)</td><td>563</td><td>$0.08</td></tr><tr><td><code>original</code></td><td>low</td><td>default</td><td>9, 9, <b>11</b>, 18, 20</td><td>11</td><td>1 / 5 (20%)</td><td>281</td><td>$0.05</td></tr><tr><td><code>original</code></td><td>medium</td><td>default</td><td>9, <b>11</b>, <b>12</b>, 18, 20</td><td>12</td><td>2 / 5 (40%)</td><td>424</td><td>$0.06</td></tr><tr><td><code>original</code></td><td>high</td><td>default</td><td>9, <b>10</b>, <b>12</b>, 20, 24</td><td>12</td><td>2 / 5 (40%)</td><td>537</td><td>$0.08</td></tr></tbody></table>
+<h4>By prompt (reasoning levels pooled, 15 calls per cell)</h4><table class="data"><colgroup></colgroup><thead><tr><th>Prompt</th><th>GPT-6 Astra: median (range)</th><th>GPT-6 Astra: within ± 1</th><th>Claude Opus 5.5: median (range)</th><th>Claude Opus 5.5: within ± 1</th></tr></thead><tbody><tr><td><code>example_2</code></td><td>13 (12–14)</td><td>5 / 15 (33%)</td><td>11 (8–21)</td><td>5 / 15 (33%)</td></tr><tr><td><code>example_21</code></td><td>13 (12–14)</td><td>1 / 15 (7%)</td><td>23 (11–25)</td><td>1 / 15 (7%)</td></tr><tr><td><code>example_11</code></td><td>13 (12–14)</td><td>2 / 15 (13%)</td><td>20 (10–23)</td><td>4 / 15 (27%)</td></tr><tr><td><code>original</code></td><td>13 (12–14)</td><td>3 / 15 (20%)</td><td>12 (9–24)</td><td>5 / 15 (33%)</td></tr></tbody></table><h4>By reasoning level (all four prompts pooled, 20 calls per cell)</h4><table class="data"><colgroup></colgroup><thead><tr><th>Reasoning</th><th>GPT-6 Astra: median (range)</th><th>GPT-6 Astra: within ± 1</th><th>GPT-6 Astra: mean reasoning tokens</th><th>Claude Opus 5.5: median (range)</th><th>Claude Opus 5.5: within ± 1</th><th>Claude Opus 5.5: mean reasoning tokens</th></tr></thead><tbody><tr><td>low</td><td>13 (12–14)</td><td>3 / 20 (15%)</td><td>249</td><td>16.5 (8–23)</td><td>3 / 20 (15%)</td><td>267</td></tr><tr><td>medium</td><td>13 (12–14)</td><td>6 / 20 (30%)</td><td>567</td><td>15.5 (9–25)</td><td>6 / 20 (30%)</td><td>421</td></tr><tr><td>high</td><td>13 (12–14)</td><td>2 / 20 (10%)</td><td>1,102</td><td>20 (9–25)</td><td>6 / 20 (30%)</td><td>549</td></tr></tbody></table>
+
+<h3>6.3 Experiment 3: output cap</h3>
+<p>Prompt <code>example_11</code>, reasoning low, image detail default, 5 calls per cap.</p>
+<table class="data"><colgroup><col style="width:16%"><col style="width:9%"><col style="width:26%"><col style="width:11%"><col style="width:12%"><col style="width:14%"><col style="width:12%"></colgroup><thead><tr><th>Model</th><th>Output cap</th><th>Counts (sorted)</th><th>Within ± 1</th><th>Mean reasoning tokens</th><th>finish_reason</th><th>Cost</th></tr></thead><tbody><tr><td>GPT-6 Astra</td><td>2,000</td><td><b>12</b>, <b>12</b>, 13, 13, 13</td><td>2 / 5 (40%)</td><td>327</td><td>stop × 5</td><td>$0.13</td></tr><tr><td>GPT-6 Astra</td><td>1,000</td><td>8, 13, 14, 14, 14</td><td>0 / 5 (0%)</td><td>276</td><td>stop × 5</td><td>$0.12</td></tr><tr><td>GPT-6 Astra</td><td>100</td><td><span class=muted>no answer in 5 of 5</span></td><td>–</td><td>100</td><td>length × 5</td><td>$0.07</td></tr><tr><td>Claude Opus 5.5</td><td>2,000</td><td>16, 20, 24, 25, 25</td><td>0 / 5 (0%)</td><td>262</td><td>stop × 5</td><td>$0.05</td></tr><tr><td>Claude Opus 5.5</td><td>1,000</td><td><b>11</b>, 16, 17, 22, 22</td><td>1 / 5 (20%)</td><td>257</td><td>stop × 5</td><td>$0.05</td></tr><tr><td>Claude Opus 5.5</td><td>100</td><td><span class=muted>no answer in 5 of 5</span></td><td>–</td><td>100</td><td>length × 5</td><td>$0.03</td></tr></tbody></table>
+
+<h3>6.4 Experiment 4: guided prompt, maximum reasoning</h3>
+<p>Sorted by share of hits, then by median. Gemini 3.8 Flash failed mid-generation in 4 of 8 attempts (5 at a
+32k cap, 3 retried at 64k); only its valid answers are shown. Full answer texts are in Appendix A.</p>
+<table class="data"><colgroup><col style="width:20%"><col style="width:11%"><col style="width:24%"><col style="width:7%"><col style="width:11%"><col style="width:10%"><col style="width:9%"><col style="width:8%"></colgroup><thead><tr><th>Model</th><th>Reasoning</th><th>Counts (sorted; bold = within 11 ± 1)</th><th>Median</th><th>Within ± 1</th><th>Mean reasoning tokens</th><th>Median latency (s)</th><th>Cost</th></tr></thead><tbody><tr><td>GPT-6 Astra<br><span class=id>openai/gpt-6-astra</span></td><td>effort xhigh</td><td><b>12</b>, <b>12</b>, <b>12</b>, <b>12</b>, <b>12</b></td><td>12</td><td>5 / 5 (100%)</td><td>3,833</td><td>99.2</td><td>$0.99</td></tr><tr><td>MiniMax-M3<br><span class=id>minimax/minimax-m3</span></td><td>effort xhigh</td><td><b>10</b>, <b>10</b>, <b>10</b>, <b>12</b>, 14</td><td>10</td><td>4 / 5 (80%)</td><td>660</td><td>5.8</td><td>$0.0057</td></tr><tr><td>GPT-6.1 Sol<br><span class=id>openai/gpt-6.1-sol</span></td><td>effort xhigh</td><td><b>12</b>, <b>12</b>, 13, 13, 13</td><td>13</td><td>2 / 5 (40%)</td><td>4,188</td><td>78.2</td><td>$0.22</td></tr><tr><td>MiMo-V2.6-Pro<br><span class=id>xiaomi/mimo-v2.6-pro</span></td><td>effort xhigh</td><td><b>11</b>, <b>12</b>, 18, 19, 20</td><td>18</td><td>2 / 5 (40%)</td><td>3,327</td><td>91.3</td><td>$0.02</td></tr><tr><td>DeepSeek V4.1 Flash<br><span class=id>deepseek/deepseek-v4.1-flash</span></td><td>effort xhigh</td><td><b>12</b>, 13, 15, 16, 20</td><td>15</td><td>1 / 5 (20%)</td><td>10,801</td><td>28.0</td><td>$0.06</td></tr><tr><td>Claude Fable 5.1<br><span class=id>anthropic/claude-fable-5.1</span></td><td>thinking budget 24,000</td><td><b>11</b>, 13, 17, 17, 20</td><td>17</td><td>1 / 5 (20%)</td><td>863</td><td>22.8</td><td>$0.38</td></tr><tr><td>Claude Opus 5.5<br><span class=id>anthropic/claude-opus-5.5</span></td><td>thinking budget 24,000</td><td><b>10</b>, 19, 20, 20, 22</td><td>20</td><td>1 / 5 (20%)</td><td>552</td><td>14.5</td><td>$0.13</td></tr><tr><td>Gemini 3.8 Flash<br><span class=id>google/gemini-3.8-flash</span></td><td>effort xhigh</td><td>9, 13, 13, 13, <span class=muted>+4&nbsp;none</span></td><td>13</td><td>0 / 4 (0%)</td><td>31,673</td><td>232.2</td><td>$0.48</td></tr><tr><td>Grok 4.7<br><span class=id>x-ai/grok-4.7</span></td><td>effort xhigh</td><td>15, 16, 16, 22, 23</td><td>16</td><td>0 / 5 (0%)</td><td>8,652</td><td>91.5</td><td>$0.27</td></tr><tr><td>Muse Spark 1.3<br><span class=id>meta/muse-spark-1.3</span></td><td>effort xhigh</td><td>23, 24, 26, 28, 35</td><td>26</td><td>0 / 5 (0%)</td><td>8,839</td><td>64.7</td><td>$0.20</td></tr><tr><td><b>All ten models</b></td><td></td><td>49 valid of 53 calls</td><td>13</td><td><b>16 / 49 (33%)</b></td><td>6,842</td><td>61.0</td><td>$2.74</td></tr></tbody></table>
+
+<h3>6.5 Failed and empty calls</h3>
+<table class="data"><colgroup><col style="width:16%"><col style="width:13%"><col style="width:10%"><col style="width:10%"><col style="width:6%"><col style="width:45%"></colgroup><thead><tr><th>Model</th><th>Prompt</th><th>Reasoning</th><th>Output cap</th><th>Calls</th><th>What happened</th></tr></thead><tbody><tr><td>GPT-6 Astra</td><td><code>example_2</code></td><td>none</td><td>2,100</td><td>5</td><td>HTTP 400: Reasoning is mandatory for this endpoint and cannot be disabled.</td></tr><tr><td>GPT-6 Astra</td><td><code>example_11</code></td><td>none</td><td>2,100</td><td>5</td><td>HTTP 400: Reasoning is mandatory for this endpoint and cannot be disabled.</td></tr><tr><td>GPT-6 Astra</td><td><code>example_21</code></td><td>none</td><td>2,100</td><td>5</td><td>HTTP 400: Reasoning is mandatory for this endpoint and cannot be disabled.</td></tr><tr><td>GPT-6 Astra</td><td><code>example_11</code></td><td>low</td><td>100</td><td>5</td><td>Empty answer, finish_reason “length”: the whole cap went to reasoning.</td></tr><tr><td>Claude Opus 5.5</td><td><code>example_11</code></td><td>low</td><td>100</td><td>5</td><td>Empty answer, finish_reason “length”: the whole cap went to reasoning.</td></tr><tr><td>Gemini 3.8 Flash</td><td><code>guided</code></td><td>xhigh</td><td>32,000</td><td>3</td><td>Provider error mid-generation (finish_reason “error”); not billed.</td></tr><tr><td>Gemini 3.8 Flash</td><td><code>guided</code></td><td>xhigh</td><td>64,000</td><td>1</td><td>Provider error mid-generation (finish_reason “error”); not billed.</td></tr></tbody></table>
+
+<h2>7. Observations</h2>
+<ul>
+<li><b>Consistent is not correct.</b> GPT-6 Astra's answers sit in a narrow band (12–14, one outlier of 8) under
+every prompt and reasoning level, with a median of 13. In phase 1 the same prompt gave mostly
+12; here, a week later, mostly 13. Its only fully correct condition is the guided prompt, where it answered 12 five
+times, which is within tolerance but still one more than the author's count.</li>
+<li><b>The example number leaks into Claude Opus 5.5's count.</b> Its median is
+11 with <code>2</code>, 23 with
+<code>21</code> and 20 with <code>11</code>. The <code>2</code> and
+<code>21</code> examples pull the answers towards themselves. Giving it the true count as the example did not
+bring it back: with <code>11</code> its median is 20. GPT-6 Astra's answers
+barely move with the example.</li>
+<li><b>More reasoning did not help.</b> For both models, going from low to high effort roughly doubles or
+quadruples the reasoning tokens (see the pooled table in 6.2) without raising the share of hits or narrowing the
+spread. In experiment 4 the models that reasoned longest (Gemini 3.8 Flash, Muse Spark 1.3, Grok 4.7, DeepSeek
+V4.1 Flash) are not the most accurate.</li>
+<li><b>The guided prompt did not settle it.</b> With a precise description and the maximum settings,
+16 / 49 (33%) valid answers are within 11 ± 1. Several models still answer in the high teens
+or twenties.</li>
+<li><b>Explanations are not evidence.</b> In Appendix A, answers of 20 and more describe the same kind of
+careful, step-by-step count as answers of 11 or 12. The explanation text does not reveal which counts are
+wrong.</li>
+<li><b>A 100-token cap gives no answer at all.</b> Both models spend the whole budget on reasoning and return an
+empty answer with <code>finish_reason: "length"</code>, while still being billed for the tokens.</li>
+</ul>
+
+<h2>8. Limitations</h2>
+<ul>
+<li>One image and one question. Nothing here generalises beyond counting thin, repeated structures in a single
+1024 × 768 photo.</li>
+<li>Five runs per condition show spread, not precise rates. No significance tests were run.</li>
+<li>The ground truth is one person's count, and the ± 1 tolerance was set after phase 1.</li>
+<li>Reasoning levels are mapped by OpenRouter to each vendor's own settings, so the same label is not the same
+effort across models. Compare the logged reasoning tokens instead.</li>
+<li><code>detail: "high"</code> is an OpenAI-style field; whether other providers honour it is not documented.</li>
+<li>Models change behind a fixed name. OpenRouter does not expose a model version, so a re-run may differ, as
+GPT-6 Astra's shift from 12 to 13 between phases shows.</li>
+<li>Only the final answers were stored, not the models' hidden reasoning. Appendix A shows the explanation each
+model chose to write, which is not a trace of how the number was produced.</li>
+</ul>
+
+<h2>9. Replication</h2>
+<p>The repository holds the scripts, the photo and every raw response. With Python 3.10+ and an OpenRouter key in
+<code>OPENROUTER_API_KEY</code>, each experiment is one command (see the README); every command is a dry run until
+<code>--run</code> is added. <code>scripts/build_metadata.py</code> rebuilds <code>data/manifest.json</code> and
+<code>data/calls.csv</code>, and <code>scripts/build_report.py</code> rebuilds this report from the same data.</p>
+
+<h2 class="pagebreak">Appendix A. Answers to the guided prompt</h2>
+<p>Every experiment-4 call, as returned by the model: the count, the explanation it gave, and the settings. These
+are the visible answers, not the hidden reasoning, which the API did not return. Grouped by model; within a model,
+in the order the calls were made.</p>
+<h3 class="appx">GPT-6 Astra <span class=id>openai/gpt-6-astra</span></h3>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 1,484 reasoning tokens · 39.7 s · cap 32,000 · repeat 0</div><pre>I count **12 red rope steps**. I followed the nearest diagonal ladder from bottom to top, counting each red horizontal rung once and excluding the white anchoring bar and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 2,444 reasoning tokens · 61.0 s · cap 32,000 · repeat 1</div><pre>I count **12 red rope steps**. I followed the closest diagonal ladder from bottom to top, counting each red horizontal cross-rope once, excluding the white anchoring bar and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 6,173 reasoning tokens · 166.1 s · cap 32,000 · repeat 2</div><pre>I count **12 red rope steps**. I followed the closest ladder from bottom to top, counting each red cross-rope once and excluding the white anchoring bar and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 5,010 reasoning tokens · 130.2 s · cap 32,000 · repeat 3</div><pre>I count **12 red horizontal rope steps**. I followed the nearest ladder from bottom to top, counting each red cross-rope once and excluding both the white anchoring bar and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 4,054 reasoning tokens · 99.2 s · cap 32,000 · repeat 4</div><pre>I count **12 red rope steps**. I followed the closest ladder upward, counting each red horizontal cross-rope once, excluding the white anchoring bar at the bottom and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<h3 class="appx">GPT-6.1 Sol <span class=id>openai/gpt-6.1-sol</span></h3>
+<div class="answer"><div class="ahead">Count <b>13</b> · 6,194 reasoning tokens · 133.7 s · cap 32,000 · repeat 0</div><pre>I count **13 red rope steps**. I followed the nearest diagonal ladder from bottom to top, counting each red horizontal rope once and excluding the white anchoring bar and the pointed knot at the top.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 3,346 reasoning tokens · 72.4 s · cap 32,000 · repeat 1</div><pre>I count **13 steps**. I followed the closest ladder from bottom to top, counting each red horizontal rope once, excluding the white anchoring bar at the bottom and the knot at the top.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 2,672 reasoning tokens · 58.1 s · cap 32,000 · repeat 2</div><pre>I count **13 steps**. I followed the closest diagonal ladder from bottom to top, counting each red horizontal rope once. I excluded the white anchoring bar at the bottom and the pointed knot at the top.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 5,057 reasoning tokens · 110.3 s · cap 32,000 · repeat 3</div><pre>I count **12 red rope steps**. I followed the closest diagonal ladder from bottom to top, counting each red cross-rope once and excluding the white anchoring bar and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 3,670 reasoning tokens · 78.2 s · cap 32,000 · repeat 4</div><pre>I count **12 red rope steps**. I followed the closest ladder upward, counting each red horizontal rung once and excluding the white anchoring bar at the bottom and the pointed knot at the top.
+
+COUNT: 12</pre></div>
+<h3 class="appx">Claude Opus 5.5 <span class=id>anthropic/claude-opus-5.5</span></h3>
+<div class="answer"><div class="ahead">Count <b>10</b> (within ± 1) · 525 reasoning tokens · 13.9 s · cap 32,000 · repeat 0</div><pre>**Count: 10 red rope steps**
+
+**How I counted:**
+1. **Found the ladder.** The front-most red rope ladder starts at the deck just right of the &quot;PIRAT&quot; name board. It rises diagonally up and to the left, past the front of the raised rear deckhouse, toward the front mast.
+2. **Set the bottom limit.** The white horizontal anchoring bar at the base is excluded.
+3. **Set the top limit.** Above the deckhouse roof, the ladder&#x27;s two side ropes converge toward the mast and meet in a knot. That narrow upper section shows no clear red cross-ropes, and the knot is excluded too.
+4. **Counted the red horizontal ropes in between.** I went one by one from just above the white bar upward. The steps are roughly evenly spaced. As a cross-check, the length of the rung-bearing section divided by the typical step spacing also gives about 10.
+
+**Caveat:** The ropes are thin and the upper steps are small and partly overlap other rigging, so the exact number is uncertain. It could be off by one, most likely 11.
+
+COUNT: 10</pre></div>
+<div class="answer"><div class="ahead">Count <b>20</b> · 475 reasoning tokens · 14.5 s · cap 32,000 · repeat 1</div><pre>**Count: about 20 steps.** Please treat this as an estimate. At this resolution the thin red ropes are hard to tell apart, especially near the top, so the true number could be one or two higher or lower.
+
+**How I counted:**
+1. **The ladder:** It runs from its white anchoring bar on the deck, just right of the &quot;PIRAT&quot; board (around the lower-right railing), up and to the left. It ends at a knot on the front mast, below the lookout basket.
+2. **Exclusions:** As you asked, I skipped the white bar at the bottom and the knotted point at the top.
+3. **Lower half:** Here the ladder crosses the dark deckhouse, and the red rungs stand out clearly. I counted them one by one from the bottom up and got about 10. They are spaced fairly evenly.
+4. **Upper half:** Here the ladder narrows toward the mast and is seen against the sky. The rungs are thinner and harder to separate, but they keep roughly the same spacing, which gives about 10 more before the ladder closes into the knot.
+5. **Check:** The ladder&#x27;s full height divided by the typical gap between rungs also gives about 19–20, which matches the direct count.
+
+If you can zoom in on a higher-resolution version, count the upper section again. That is where any error is most likely.
+
+COUNT: 20</pre></div>
+<div class="answer"><div class="ahead">Count <b>19</b> · 718 reasoning tokens · 17.7 s · cap 32,000 · repeat 2</div><pre># Rope ladder step count: about 19 red rungs (an estimate, not an exact count)
+
+At this resolution I can&#x27;t count the rungs one by one, especially near the top where the ladder narrows. So I estimated the count from the ladder&#x27;s length and the spacing between rungs.
+
+**How I counted and reasoned:**
+
+1. **Finding the ladder:** I followed the red ladder from its bottom, just right of the &quot;PIRAT&quot; board in front of the rear deckhouse, up and to the left toward the front mast. It ends in a point below the lookout basket.
+
+2. **Setting the ends:** I left out the white anchoring bar at the bottom and the knot at the top, as you asked.
+
+3. **Spacing:** In the lower half the rungs are clear. They sit roughly evenly, about 17 pixels apart vertically in the photo.
+
+4. **Length:** From just above the white bar (around the deck rail) to just below the knot (near the lookout basket), the ladder spans about 345 pixels vertically.
+
+5. **Calculation:** 345 ÷ 17 gives about 20 intervals. That works out to about 19 rungs between the bar and the knot.
+
+6. **Upper section:** Near the top the rungs get short and thin against the sky and rigging, so I assumed the same spacing continues there.
+
+The true number is probably within one or two of 19. If you can zoom into the original photo, a good way to check is to count the clear lower rungs in groups of five, then carry on upward.
+
+COUNT: 19</pre></div>
+<div class="answer"><div class="ahead">Count <b>22</b> · 483 reasoning tokens · 14.4 s · cap 32,000 · repeat 3</div><pre>**Estimated step count: about 22** (probably 21–23; I can&#x27;t be sure of the exact number from this photo).
+
+**How I counted and reasoned:**
+
+1. **Identifying the ladder.** I followed the front-most rope ladder from its bottom, just right of the &quot;PIRAT&quot; name board and in front of the raised rear deckhouse, up and to the left toward the front mast, ending below the lookout basket.
+2. **Excluding the ends.** I left out the white anchoring bar at the bottom and the knot where the ladder narrows to a point at the top.
+3. **Lower section.** From the anchoring bar up to about the level of the deckhouse roof, the red rungs are fairly easy to see against the dark deckhouse. They are evenly spaced, and I counted roughly 10 of them.
+4. **Upper section.** Above the deckhouse roof, the ladder climbs against the sky and narrows, and the rungs become thin and hard to separate. Here I partly counted and partly estimated. I assumed the rungs keep roughly the same spacing along the ropes, which gives about 11–12 more up to the top knot.
+5. **Adding up.** 10 lower plus about 12 upper gives about 22.
+
+The upper rungs are too small and blurry at this resolution to count exactly, so the true number could be a rung or so either way. If you have a higher-resolution version, zooming in on the upper part near the mast would give a firmer count.
+
+COUNT: 22</pre></div>
+<div class="answer"><div class="ahead">Count <b>20</b> · 561 reasoning tokens · 14.8 s · cap 32,000 · repeat 4</div><pre>**Step count: about 20** (a close estimate, likely within 1 or 2 of the true number; I can&#x27;t be fully certain at this resolution).
+
+**How I counted:**
+
+1. **Traced the ladder.** It starts at the white anchoring bar on the deck just right of the &quot;PIRAT&quot; board and rises up and to the left to a point high on the front mast, below the lookout basket. I excluded the white bar at the bottom and the knot at the top.
+
+2. **Lower section (deckhouse wall up to the roof line).** The red rungs stand out clearly against the dark wall. I counted about 9 there, evenly spaced about 15 pixels apart vertically.
+
+3. **Upper section (above the roof, against the sky and rigging).** The rungs are thinner and harder to see, and they overlap other ropes, so I couldn&#x27;t count each one reliably. Instead, I checked the rungs I could see against the spacing from the lower section. Assuming that spacing stays roughly constant, the remaining height up to where the ladder narrows fits about 11 more rungs.
+
+4. **Total.** 9 + 11 = about 20 red rope steps between the bar and the knot.
+
+If you can zoom in on the original photo, recounting the upper section would confirm the exact number, since that is where my uncertainty lies.
+
+COUNT: 20</pre></div>
+<h3 class="appx">Claude Fable 5.1 <span class=id>anthropic/claude-fable-5.1</span></h3>
+<div class="answer"><div class="ahead">Count <b>17</b> · 725 reasoning tokens · 22 s · cap 32,000 · repeat 0</div><pre>**How I counted**
+
+I followed the front-most shroud/ratline ladder from its white anchoring bar at the bottom (just right of the &quot;PIRAT&quot; board, in front of the rear deckhouse) up and to the left toward the foremast, tracking the point where its two side ropes converge in a knot below the lookout basket.
+
+- I first worked through the clearly visible lower section, between the deck and the ship&#x27;s railing, where the red rungs are widest and evenly spaced. I ticked these off one at a time, from bottom to top.
+- I then continued into the upper section, where the ladder narrows as it passes in front of the mast and rigging; the rungs there are shorter and closer together, so I compared each red line&#x27;s position against the diagonal side ropes to make sure I only counted rungs belonging to this ladder and not the red ratlines of the second (rear) ladder behind it or the mast&#x27;s rigging lines.
+- I excluded the white anchoring bar at the bottom and the knot at the top, as requested.
+
+Counting from bottom (just above the white bar) to top (just below the knot), I arrive at 17 red rope steps.
+
+COUNT: 17</pre></div>
+<div class="answer"><div class="ahead">Count <b>11</b> (within ± 1) · 839 reasoning tokens · 21.6 s · cap 32,000 · repeat 1</div><pre>**Count of red rope steps: 11**
+
+How I counted: I located the front‑most ladder starting at the white horizontal bar just right of the &quot;PIRAT&quot; board, in front of the rear deckhouse (around the lower middle‑right of the photo). From that bar I followed the ladder up and to the left toward the fore mast, ticking off each red horizontal rope one at a time. The lowest steps are wide and clearly separated; as the ladder rises past the deckhouse roof and toward the mast, the steps get progressively shorter and closer together until the side ropes meet in the knot below the lookout basket. I skipped the white bar at the bottom and the terminating knot at the top, and only counted the red horizontal ropes between them, checking twice to make sure I didn&#x27;t double‑count the narrow upper steps.
+
+COUNT: 11</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 881 reasoning tokens · 23.2 s · cap 32,000 · repeat 2</div><pre>**How I counted**
+
+I traced the ladder from the white horizontal anchor bar (just above deck level, to the right of the &quot;PIRAT&quot; board and in front of the rear deckhouse) up and to the left toward the front mast. I then went rung by rung, using the fairly regular spacing of the red ropes as a check: the rungs are wide and clearly separated in the lower part (in front of the dark hull and railing), and become shorter and closer together as the two side ropes converge toward the knot just below the lookout basket on the front mast.
+
+- Lower section (from the white bar up to about railing height): 8 red rungs, wide and easy to distinguish.
+- Upper, narrowing section (above the railing, against the sky/mast up to the knot): 5 more red rungs, progressively shorter.
+
+I excluded the white anchoring bar at the bottom and the knot at the top, as requested. Checking the total against the even spacing of the rungs over the ladder&#x27;s length gave a consistent result.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>17</b> · 920 reasoning tokens · 22.8 s · cap 32,000 · repeat 3</div><pre>**How I counted**
+
+I followed the front ratline (the rope ladder from the deck just right of the &quot;PIRAT&quot; board up-left to the foremast) from bottom to top and split it into two sections to keep track:
+
+1. **Lower section** (from the white anchoring bar up to about the height of the ship&#x27;s rail): here the red rungs are close together and clearly visible against the dark hull/deckhouse. I counted **9** red rungs in this stretch.
+2. **Upper section** (from the rail height up to where the ladder narrows to the knot on the mast, below the lookout basket): the rungs are seen against the sky and the mast rigging, and become progressively shorter as the shrouds converge. I counted **8** red rungs here, the last few being very short just under the terminating knot.
+
+I excluded the white horizontal bar at the bottom and the pointed knot at the top, as requested. I also made sure not to count the diagonal shroud ropes or the mast&#x27;s other rigging lines that cross behind the ladder – only the horizontal red ropes belonging to this ladder.
+
+Total: 9 + 8 = 17 red rope steps.
+
+COUNT: 17</pre></div>
+<div class="answer"><div class="ahead">Count <b>20</b> · 951 reasoning tokens · 24.0 s · cap 32,000 · repeat 4</div><pre>**Step count: about 20 red rungs.**
+
+How I counted and reasoned:
+
+1. **Locating the ladder.** I followed the shroud that leaves the deck just right of the &quot;PIRAT&quot; name board, in front of the raised rear deckhouse (around the white anchoring bar at its foot), and runs up‑left to the front mast, ending in a converging point/knot below the crow&#x27;s nest. This is the ladder nearest the camera; the ladders on the rear mast and the second set behind it were ignored.
+
+2. **Splitting into two sections.** The ladder naturally divides into a lower part seen against the dark deckhouse/hull (where the red rungs contrast strongly) and an upper part seen against the sky (where the ladder narrows toward the mast).
+
+3. **Lower section (against the deckhouse, from the white bar up to the ship&#x27;s rail):** I counted the red horizontal lines one by one, using the deckhouse windows and rail as reference marks – 9 rungs.
+
+4. **Upper section (against the sky, from the rail up to the knot):** the rungs are evenly spaced (about the same pitch as below) and I counted them along the shroud lines up to where the side ropes pinch together – 11 rungs.
+
+5. **Total:** 9 + 11 = 20, excluding the white bar at the bottom and the knot at the top. Because the image resolution is limited where the rungs are thinnest near the top, the true figure could be off by one (19–21), but 20 is my best count.
+
+COUNT: 20</pre></div>
+<h3 class="appx">Gemini 3.8 Flash <span class=id>google/gemini-3.8-flash</span></h3>
+<div class="answer"><div class="ahead">No answer · cap 32,000 · repeat 0</div><pre>provider error mid-generation</pre></div>
+<div class="answer"><div class="ahead">No answer · cap 32,000 · repeat 1</div><pre>provider error mid-generation</pre></div>
+<div class="answer"><div class="ahead">No answer · cap 32,000 · repeat 2</div><pre>provider error mid-generation</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 30,716 reasoning tokens · 198.8 s · cap 32,000 · repeat 3</div><pre>To count the steps (rungs) of the front-most rope ladder, we trace the ladder from the white anchoring bar at the bottom to the apex knot at the top:
+
+1. **Ladder Location &amp; Boundaries**: 
+   - The ladder is located on the waist of the ship on the starboard/pier-facing side, just forward of the rear deckhouse and to the right of the hull&#x27;s &quot;PIRAT&quot; nameplate.
+   - At the bottom, it anchors to a white horizontal bar at deck/rail level (excluded from the count).
+   - At the top, the ladder&#x27;s outer ropes narrow into a pointed apex knot (also excluded from the count) from which stays run up towards the foremast.
+
+2. **Counting the Rungs**:
+   - **Bottom section (below the grey tarp)**: Above the white anchoring bar against the darker deck/hull, there are **2** horizontal red rope rungs.
+   - **Middle section (in front of the grey tarp)**: Against the bright grey canvas/tarp on deck, the red rope grid is clearly visible with **6** evenly spaced horizontal red rope rungs crossing it.
+   - **Top section (above the grey tarp to the knot)**: Moving up from the top edge of the tarp towards the apex knot as the ladder tapers inward, there are **5** progressively narrower horizontal red rope rungs.
+
+Adding these together: $2 + 6 + 5 = 13$ horizontal red rope rungs in total.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 28,823 reasoning tokens · 229.0 s · cap 32,000 · repeat 4</div><pre>To count the steps (rungs) of the front-most rope ladder:
+
+1. **Locating the ladder**: The ladder begins at the deck railing just to the right of the &quot;PIRAT&quot; name board, anchored to a white horizontal bar, and angles upward and forward (to the left) in front of the raised deckhouse toward the foremast, tapering to a knot at its upper apex before the stays continue up to the mast.
+2. **Excluding endpoints**: As instructed, we exclude the white horizontal anchoring bar at the bottom and the knot/apex at the top.
+3. **Counting the red horizontal rope steps from bottom to top**:
+   - **Lower section (in front of the grey tarp covering the deck equipment)**: Starting just above the white anchoring bar, there are **6** evenly spaced red horizontal rungs spanning across the shrouds up to the top edge of the tarp.
+   - **Middle section (in front of the deckhouse wall and front windows)**: Just above the tarp, across the lower sill and the window area of the deckhouse, there are **5** red horizontal rungs.
+   - **Upper section (at and above the roofline)**: There is **1** rung level with the roofline/overhang and **1** final, short rung just below the apex knot where the shrouds converge.
+
+This gives a total of 6 + 5 + 2 = 13 red horizontal rope steps.
+
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>9</b> · 32,209 reasoning tokens · 235.5 s · cap 64,000 · repeat 0</div><pre>To determine the number of steps (horizontal red rope rungs) on the front-most rope ladder, we can trace and count them systematically from the bottom anchoring bar to the top knot:
+
+1. **Exclusions**: 
+   - The white horizontal metal anchoring bar at the bottom attached to the ship&#x27;s gunwale is excluded.
+   - The knot at the very top apex where the ropes meet and taper to a point is also excluded.
+
+2. **Step-by-step count from bottom to top**:
+   - **Rung 1**: The lowest red horizontal rope spanning across the vertical lines just above the white anchoring bar.
+   - **Rungs 2, 3, and 4**: The next three red horizontal rungs ascending evenly across the lower section (in front of the grey protective tarp).
+   - **Rung 5**: The horizontal red rope positioned roughly at the level of the upper edge of the grey tarp.
+   - **Rungs 6, 7, and 8**: The next three red horizontal ropes continuing upward against the dark background of the deckhouse structure.
+   - **Rung 9**: The uppermost, shortest horizontal red rope step located directly below the apex knot where the ladder tapers to a point.
+
+Counting all of the red horizontal rope rungs between the bottom white bar and the top knot gives a total of 9 steps.
+
+COUNT: 9</pre></div>
+<div class="answer"><div class="ahead">No answer · cap 64,000 · repeat 1</div><pre>provider error mid-generation (Google); completion_tokens=2771</pre></div>
+<div class="answer"><div class="ahead">Count <b>13</b> · 34,944 reasoning tokens · 239.9 s · cap 64,000 · repeat 2</div><pre>To count the steps (rungs) of the front-most red rope ladder, we trace it from the bottom anchoring bar up to the knot at the top:
+
+1. **Bottom Section (in front of the grey protective tarp):**
+   - Just above the white horizontal anchoring bar fastened near the deck, the first red horizontal rope step begins.
+   - Counting upward across the lower portion in front of the grey tarp, there are **6** evenly spaced red horizontal rope steps (with the 6th located right near the upper edge of the tarp).
+
+2. **Upper Section (in front of the deckhouse front wall and windows):**
+   - Continuing upward as the ladder narrows towards its apex, there are **7** more red horizontal rope steps extending up the dark front of the deckhouse to just below the top knot where the shrouds converge.
+
+Adding both sections together: 6 steps + 7 steps = 13 steps.
+
+COUNT: 13</pre></div>
+<h3 class="appx">Grok 4.7 <span class=id>x-ai/grok-4.7</span></h3>
+<div class="answer"><div class="ahead">Count <b>23</b> · 6,110 reasoning tokens · 91.5 s · cap 32,000 · repeat 0</div><pre>The front-most rope ladder is the diagonal one just right of the “PIRAT” board, running from the deck up toward the foremast beneath the lookout basket. I ignored the white anchoring bar at its foot and the converging knot at the top, and counted only the red horizontal rope rungs between them, moving upward from the lowest red rung. COUNT: 23</pre></div>
+<div class="answer"><div class="ahead">Count <b>16</b> · 10,840 reasoning tokens · 174.4 s · cap 32,000 · repeat 1</div><pre>I followed the nearest red rope ladder from the deck up toward the foremast, excluding the white bottom anchoring bar and the top knot. Counting only the red horizontal rope rungs between them gives 16.
+
+COUNT: 16</pre></div>
+<div class="answer"><div class="ahead">Count <b>16</b> · 19,111 reasoning tokens · 289.3 s · cap 32,000 · repeat 2</div><pre>I counted the red horizontal rope rungs on the closest ladder, excluding the white bottom bar and the top knot. COUNT: 16</pre></div>
+<div class="answer"><div class="ahead">Count <b>15</b> · 3,283 reasoning tokens · 72.8 s · cap 32,000 · repeat 3</div><pre>The nearest rope ladder is the red-rung one just right of the “PIRAT” board, running diagonally up-left from the deck to the foremast below the lookout basket. I ignored the white anchoring bar at the deck and the closing knot at the top, and counted only the red horizontal rope steps between them, moving upward along the ladder.
+
+COUNT: 15</pre></div>
+<div class="answer"><div class="ahead">Count <b>22</b> · 3,917 reasoning tokens · 59.2 s · cap 32,000 · repeat 4</div><pre>COUNT: 22</pre></div>
+<h3 class="appx">Muse Spark 1.3 <span class=id>meta/muse-spark-1.3</span></h3>
+<div class="answer"><div class="ahead">Count <b>26</b> · 5,452 reasoning tokens · 56.5 s · cap 32,000 · repeat 0</div><pre>The ladder is the reddish diagonal shroud on the near side,
+bottom fastened just right of the PIRAT board, top meeting
+the fore-mast below the basket.
+
+I started just above the thick white horizontal anchoring bar
+and did not count it, then followed the two converging side
+ropes up-left toward the mast, ticking off every red
+horizontal intersecting rope. I grouped them in 5s going up
+to keep track and double-checked against the sky background.
+I stopped before the final converging point-knot at the top
+and did not count that knot.
+
+Bottom 5 clear, then 5, then 5, then 5, then 6 very close
+together near the top = 26 red steps in between.
+COUNT: 26</pre></div>
+<div class="answer"><div class="ahead">Count <b>28</b> · 6,309 reasoning tokens · 62.7 s · cap 32,000 · repeat 1</div><pre>I found the diagonal red-runged shroud on the right side, running from the deck just right of the PIRAT board up-left to the fore-mast below the crow&#x27;s nest.
+
+I excluded the white horizontal bar at the very bottom and the converging point/knot at the very top. Then I traced the two side ropes from bottom to top and counted each distinct red horizontal rope between them in order, 1-by-1 from the wide bottom rungs to the very short top rungs, and checked again top-down.
+
+That gives 28 red steps in between.
+COUNT: 28</pre></div>
+<div class="answer"><div class="ahead">Count <b>35</b> · 13,300 reasoning tokens · 145.4 s · cap 32,000 · repeat 2</div><pre>I identified the correct ladder as the steep red-sided rope ladder that starts just to the right of the PIRAT board in front of the stern deckhouse and runs up-left to the foremast below the crow&#x27;s-nest.
+
+I excluded the thick white horizontal bar at the very bottom and excluded the converging point/knot at the very top. Then I traced the two diagonal side ropes from bottom to top and counted every red horizontal rope connecting them in order, checking in small groups of 5 to avoid losing place, lower section against the hull, middle against the deckhouse, upper against the sky.
+
+I get 35 red steps in between.
+
+COUNT: 35</pre></div>
+<div class="answer"><div class="ahead">Count <b>24</b> · 6,887 reasoning tokens · 64.7 s · cap 32,000 · repeat 3</div><pre>I isolated the red diagonal ladder on the right side - bottom just right of the PIRAT board, top high on the front mast below the basket.
+
+I excluded the thick white anchoring bar at the bottom and the converging point/knot at the top. Then enlarging the ladder area I traced the center line from bottom to top and tallied each red horizontal rope crossing it, in groups of 5 to avoid losing place, then re-checked top-down.
+
+Bottom white bar - excluded
+1-5 just above white up to hull rail,
+6-10 up past deckhouse,
+11-15 up to about cannon/spotlight level,
+16-20 up through mid-rigging,
+21-24 getting very short up to just below the apex,
+apex knot - excluded.
+
+That gives 24 red steps in between.
+COUNT: 24</pre></div>
+<div class="answer"><div class="ahead">Count <b>23</b> · 12,246 reasoning tokens · 140.4 s · cap 32,000 · repeat 4</div><pre>I identified the diagonal red-sided ladder on the right side of the image.
+
+Its foot is the white bar low on the right, just to the right of the PIRAT board, and it runs up-left to the fore-mast below the crow&#x27;s-nest basket.
+
+I excluded the bottom white anchoring bar and excluded the converging point/knot at the very top.
+
+Starting with the first red horizontal just above the white bar, I followed the two side ropes upward and tallied every red horizontal cross-rope in order, in groups of 5 to avoid losing place, then checked back down from the top.
+
+That gives only the red intermediate steps between the white bar and the top knot.
+
+COUNT: 23</pre></div>
+<h3 class="appx">MiniMax-M3 <span class=id>minimax/minimax-m3</span></h3>
+<div class="answer"><div class="ahead">Count <b>10</b> (within ± 1) · 447 reasoning tokens · 5.8 s · cap 32,000 · repeat 0</div><pre>Looking at the front-most rope ladder in the image, I can trace it from the white anchoring bar at the bottom (which I exclude) up to the knot at the top (which I also exclude).
+
+The ladder runs diagonally upward to the left along the front mast. I counted the red horizontal rope steps by working from just above the white anchoring bar at the lower right, moving up one rung at a time toward the narrowing point near the top.
+
+Carefully counting each distinct red horizontal rope rung between the white bar and the knot:
+1 (lowest, just above the white bar), 2, 3, 4, 5, 6, 7, 8, 9, 10 (highest, just below where the ladder narrows to a point).
+
+I reasoned that because the rungs are evenly spaced and the ladder is foreshortened by perspective, I needed to count each one individually rather than estimating, paying close attention to the spaces between rungs to avoid double-counting or missing one near the narrowing point.
+
+COUNT: 10</pre></div>
+<div class="answer"><div class="ahead">Count <b>10</b> (within ± 1) · 1,737 reasoning tokens · 13.8 s · cap 32,000 · repeat 1</div><pre>Looking at the photo, I need to identify the specific rope ladder described. The bow is on the left with the figurehead and bowsprit, and the &quot;PIRAT&quot; name board is on the hull. Just to the right of that board, I can see a rope ladder running diagonally upward to the left toward the front mast (the one with the crow&#x27;s nest/lookout basket).
+
+**How I counted:**
+I located the ladder by its anchor points: starting at the deck to the right of the &quot;PIRAT&quot; board and ending high on the front mast below the lookout basket. I excluded the white horizontal bar at the very bottom (the anchoring bar) and the knot at the very top. I then counted only the red horizontal rope rungs in between, going from the lowest red rung up to the highest red rung before the final narrowing knot.
+
+Starting from just above the white anchor bar and moving up along the diagonal toward the mast, I can identify roughly evenly spaced red horizontal rope steps. Tracing them carefully — the spacing between rungs stays fairly consistent, helping confirm each step. Counting them sequentially: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. The upper end narrows into a knot, which I stop counting at.
+
+My reasoning: the ladder has a relatively uniform rung spacing, and I traced it carefully without skipping any, treating any ambiguous areas conservatively.
+
+COUNT: 10</pre></div>
+<div class="answer"><div class="ahead">Count <b>10</b> (within ± 1) · 372 reasoning tokens · 5.9 s · cap 32,000 · repeat 2</div><pre>Looking at the front-most rope ladder, I can trace it from the lower right (where it meets the deck near the PIRAT board, above the white anchoring bar) running diagonally up-left toward the front mast.
+
+**How I counted:**
+- I started at the lowest red horizontal rope step, just above the white anchoring bar at the bottom of the ladder.
+- I moved upward along the ladder, counting each distinct red horizontal rope rung.
+- I stopped counting before the ladder narrows and tapers into the knot at the top.
+
+Working from bottom to top along the diagonal, I can identify **10** distinct red horizontal rope steps between the white anchoring bar at the bottom and the tapered knot at the top.
+
+COUNT: 10</pre></div>
+<div class="answer"><div class="ahead">Count <b>14</b> · 349 reasoning tokens · 5.1 s · cap 32,000 · repeat 3</div><pre>Looking at the front-most rope ladder, I traced it from the white anchoring bar at the bottom (excluded) up to the knot at the top (excluded), counting only the red horizontal rope steps in between.
+
+**How I counted and reasoned:**
+- I located the ladder&#x27;s lower anchor point near the deck, just right of the &quot;PIRAT&quot; name board, where the white horizontal bar is tied off (skipped).
+- From there, I followed the two side ropes diagonally up-left toward the front mast, stopping where the ladder narrows into the terminal knot (skipped).
+- I counted each red horizontal rope crossing the side ropes, working bottom-to-top, taking care not to double-count any that overlap due to the diagonal perspective or merge with rigging lines.
+- I re-counted top-to-bottom as a check to confirm consistency.
+- I disregarded the red/pink halyard and other rigging ropes near the mast that are parallel to the ladder — only the rungs spanning the ladder&#x27;s two side ropes were counted.
+
+My careful count of the red horizontal rope steps is **14**.
+
+COUNT: 14</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 396 reasoning tokens · 5.2 s · cap 32,000 · repeat 4</div><pre>Looking at the rope ladder running diagonally from the deck near the &quot;PIRAT&quot; signboard up to the front mast, I can identify the red horizontal rope steps by tracing along the two side ropes of the ladder.
+
+**Counting method:** I started at the bottom of the ladder just above the white anchoring bar, then carefully traced each red horizontal rope rung going upward, following the diagonal trajectory until the ladder narrows into the knot at the top. I counted each distinct red step as a separate horizontal element crossing between the two vertical side ropes.
+
+Going from bottom to top:
+1 (just above white bar), 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 (just below the narrowing knot)
+
+The steps are evenly spaced along the diagonal run, and the white bar at the base plus the terminal knot at the top are excluded as instructed.
+
+COUNT: 12</pre></div>
+<h3 class="appx">MiMo-V2.6-Pro <span class=id>xiaomi/mimo-v2.6-pro</span></h3>
+<div class="answer"><div class="ahead">Count <b>11</b> (within ± 1) · 917 reasoning tokens · 31.6 s · cap 32,000 · repeat 0</div><pre>To count the steps of the ladder, I identified the specific rope ladder you described: the one closest to the camera, anchored near the &quot;PIRAT&quot; name board and ascending diagonally to the front mast.
+
+1.  **Locating the start:** At the bottom of the ladder, there is a white horizontal anchoring bar. Following your instructions, I did not count this bar.
+2.  **Counting the red rungs:** Starting immediately above the white bar, I counted the horizontal red rope rungs going upwards.
+    *   Rung 1 is the lowest red rung.
+    *   Rungs 2 through 8 follow in fairly even spacing up the diagonal line.
+    *   As the ladder approaches the mast and narrows, Rungs 9, 10, and 11 continue upwards.
+3.  **Locating the end:** Immediately above the 11th rung, the black side ropes converge and are tied off in a knot where the ladder attaches to the mast. Following your instructions, I did not count this knot.
+
+There are exactly 11 distinct horizontal red rope rungs in between the bottom white bar and the top knot.
+
+COUNT: 11</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 2,625 reasoning tokens · 82.4 s · cap 32,000 · repeat 1</div><pre>Based on the image and your description, here is how I counted the steps:
+
+1.  **Locate the ladder**: I identified the specific rope ladder starting at the bottom right, attached to the deck just to the right of the &quot;PIRAT&quot; name board, and extending diagonally up to the left towards the front mast.
+2.  **Start point**: I found the white horizontal anchoring bar at the very bottom where the ladder is attached to the deck. Following your instructions, I excluded this from the count.
+3.  **Counting up**: Moving upwards along the ladder, I counted each red horizontal rope step.
+    *   The first red step is just above the white bar.
+    *   Continuing up past the dark wooden structure of the deckhouse and into the open area towards the mast, I counted the subsequent red ropes.
+4.  **End point**: I counted 12 distinct red ropes before reaching the top of the ladder. At the very top, the ladder&#x27;s side ropes converge into a narrowing point and a knot. I excluded this knot from the count as instructed.
+
+The total count of red horizontal rope steps is 12.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>20</b> · 2,265 reasoning tokens · 91.3 s · cap 32,000 · repeat 2</div><pre>To count the steps of the rope ladder, I focused on the ladder located on the right side of the image, which connects the deck to the front mast. 
+
+I started at the bottom of the ladder where it is anchored to the deck. As noted, there is a white horizontal bar at the very bottom; I excluded this from the count. Starting immediately above the white bar, I counted each red horizontal rope step moving upwards diagonally.
+
+The ladder consists of 20 distinct red rope rungs. The spacing between the rungs is fairly consistent. As I reached the top, I stopped counting just before the point where the ladder narrows and the ropes converge into the knot, which was also excluded as per your instructions.
+
+COUNT: 20</pre></div>
+<div class="answer"><div class="ahead">Count <b>19</b> · 3,443 reasoning tokens · 91.3 s · cap 32,000 · repeat 3</div><pre>To determine the number of steps on the specific rope ladder described, I followed these steps:
+
+1.  **Identification**: I located the rope ladder in the foreground that stretches diagonally from the lower right deck area (near the &quot;PIRAT&quot; name board) up to the left towards the front mast (the one with the basket/crow&#x27;s nest).
+2.  **Exclusions**: As instructed, I identified and disregarded the white horizontal anchoring bar at the bottom and the knot at the very top of the ladder where the lines converge.
+3.  **Counting**: I counted the red horizontal rope rungs located strictly between the white bar and the top knot.
+    *   Starting just above the white bar at the bottom, I counted upwards:
+    *   There is a series of clearly defined red rungs.
+    *   Counting each red horizontal segment individually from bottom to top results in 19 distinct rungs.
+    *   The 19th rung is the last visible red line just before the knot at the top.
+
+The total count of red horizontal rope steps is 19.
+
+COUNT: 19</pre></div>
+<div class="answer"><div class="ahead">Count <b>18</b> · 7,387 reasoning tokens · 200.8 s · cap 32,000 · repeat 4</div><pre>Based on the image provided and your detailed description, I have counted the steps of the front-most rope ladder.
+
+**Reasoning and Counting Method:**
+1.  **Identification:** I located the ladder as the one running diagonally up the front mast, situated to the right of the &quot;PIRAT&quot; sign and the hull.
+2.  **Exclusions:** I identified the &quot;white horizontal anchoring bar&quot; at the bottom and the &quot;knot&quot; at the top where the ropes converge. As requested, I did not count these.
+3.  **Counting:** I focused on the red horizontal ropes (&quot;steps&quot;) situated between these two anchors. Starting from the very first red rope immediately above the white bottom bar and counting upwards to the last red rope just below the top knot, I counted each step one by one.
+4.  **Result:** The count proceeds through the ladder sections: there are 18 distinct red horizontal ropes in the middle section.
+
+COUNT: 18</pre></div>
+<h3 class="appx">DeepSeek V4.1 Flash <span class=id>deepseek/deepseek-v4.1-flash</span></h3>
+<div class="answer"><div class="ahead">Count <b>13</b> · 10,509 reasoning tokens · 27.5 s · cap 32,000 · repeat 0</div><pre>I counted the red horizontal rope rungs along the near, diagonal rope ladder, starting just above the white horizontal bottom bar and stopping below the top knot where the ladder narrows. Excluding the white anchoring bar at the bottom and the top knot, I counted the red rungs in between as 13.  
+COUNT: 13</pre></div>
+<div class="answer"><div class="ahead">Count <b>12</b> (within ± 1) · 10,173 reasoning tokens · 95.9 s · cap 32,000 · repeat 1</div><pre>I located the front-most rope ladder on the near side of the foremast, starting above the white horizontal anchoring bar near the &quot;PIRAT&quot; name board and extending up toward the foremast below the lookout basket. I counted each red horizontal rope step between the excluded white bottom bar and the excluded top knot. My count was 12 red rungs.
+
+COUNT: 12</pre></div>
+<div class="answer"><div class="ahead">Count <b>20</b> · 16,611 reasoning tokens · 49.3 s · cap 32,000 · repeat 2</div><pre>The front-most rope ladder is the diagonal one on the near side, with red horizontal rungs. I started counting just above the white anchoring bar at the bottom and counted each red horizontal rope step upward, stopping just below the pointed/knot at the top. I did not count the white base bar or the top knot.
+
+COUNT: 20</pre></div>
+<div class="answer"><div class="ahead">Count <b>16</b> · 10,609 reasoning tokens · 28.0 s · cap 32,000 · repeat 3</div><pre>I counted the red horizontal rope rungs on the front-most ladder, starting from the first red rung just above the white anchoring bar and ending at the last red rung just below the narrowing top knot. I did not count the white bottom anchoring bar or the top knot.
+
+COUNT: 16</pre></div>
+<div class="answer"><div class="ahead">Count <b>15</b> · 6,104 reasoning tokens · 18.1 s · cap 32,000 · repeat 4</div><pre>I counted the red horizontal rope steps on the front-most ladder by tracing from the bottom up. I skipped the white anchoring bar at the very bottom and stopped before the top knot where the ladder narrows. In between, I counted 15 red rungs.
+
+COUNT: 15</pre></div>
+
+<h2 class="pagebreak">Appendix B. Raw files</h2>
+<p>SHA-256 checksums of the raw files in <code>data/raw/</code>, as listed in <code>data/manifest.json</code>
+(total 218 calls, 19 API errors, $6.48).</p>
+<table class="data small"><colgroup><col style="width:19%"><col style="width:31%"><col style="width:6%"><col style="width:6%"><col style="width:7%"><col style="width:31%"></colgroup><thead><tr><th>File (data/raw/)</th><th>Contents</th><th>Calls</th><th>Errors</th><th>Cost</th><th>SHA-256</th></tr></thead><tbody><tr><td><code>reasoning-20260930-042404.jsonl</code></td><td>1: GPT-6 Astra, prompts example_2/21/11 x reasoning none/low/medium/high (none is rejected by the API)</td><td>60</td><td>15</td><td>$1.90</td><td><span class=hash>1bec586dc3255dd6c1ea01aa5613bcef29638c948da05d8121054db3c0f8c742</span></td></tr><tr><td><code>reasoning-20260930-043124.jsonl</code></td><td>2: GPT-6 Astra, original phase-1 prompt, default image detail, low/medium/high</td><td>15</td><td>0</td><td>$0.62</td><td><span class=hash>a5a34dda541359a03d14976f2cad75d6026b62442fe77569094560898ea6a089</span></td></tr><tr><td><code>reasoning-20260930-043624.jsonl</code></td><td>1: Claude Opus 5.5, prompts example_2/21/11 x reasoning low/medium/high</td><td>45</td><td>0</td><td>$0.57</td><td><span class=hash>275ac5c2849a5d61bca1af5408872240c24fdf483bedab64ae838a309fee5358</span></td></tr><tr><td><code>reasoning-20260930-043804.jsonl</code></td><td>2: Claude Opus 5.5, original phase-1 prompt, default image detail, low/medium/high</td><td>15</td><td>0</td><td>$0.19</td><td><span class=hash>3dd22c5d3faa8cd164e8be058df76c3c42e33a367ea0d8ac1128a5c47e94ac27</span></td></tr><tr><td><code>reasoning-20260930-044245.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.13</td><td><span class=hash>d3b5480af0eef106c5d9caeefbf25b4ec7b897a8f778490c5782215583ac5547</span></td></tr><tr><td><code>reasoning-20260930-044310.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.12</td><td><span class=hash>837cf1a12c0f15d0e3c2f29cf9d265d49a64bbd3489e78f4ab8da979a24502bb</span></td></tr><tr><td><code>reasoning-20260930-044333.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.07</td><td><span class=hash>63b3e85a60ea4b485cba1d7352017b022804af4fe39bba1d60e69548390df25c</span></td></tr><tr><td><code>reasoning-20260930-044350.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.05</td><td><span class=hash>800ac12505a8394502e8ea63652b931ab7e7f75b08e9eeefa380556fb00104d9</span></td></tr><tr><td><code>reasoning-20260930-044406.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.05</td><td><span class=hash>6d03cdc807a997864f94e82ffc9fdbdbcd11c0d14d5806d6547e7dc925a0b2c1</span></td></tr><tr><td><code>reasoning-20260930-044424.jsonl</code></td><td>3: output-cap test, example_11, low reasoning, default detail</td><td>5</td><td>0</td><td>$0.03</td><td><span class=hash>65db76387e69623ad161b5664822f62695ec71821366328290d6285751a9add0</span></td></tr><tr><td><code>reasoning-20260930-050429.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.99</td><td><span class=hash>cc6752229e7d3ce6fabafb2730ca4211b9c83179d5df90728c392dfe4368f196</span></td></tr><tr><td><code>reasoning-20260930-050855.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.13</td><td><span class=hash>d8a4a53c06eaf033d8599830dce14642e803490b2abef38415a340cb7c9008a0</span></td></tr><tr><td><code>reasoning-20260930-051532.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.38</td><td><span class=hash>71c02fac1c0ea22dfa6f4effa36ed468c3d3be50b34fd3b50c15af81af0bc2d9</span></td></tr><tr><td><code>reasoning-20260930-052556.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.0057</td><td><span class=hash>53f17ac6b9490958cb56d649f122ccabfdd0ac2061c16456bd61f1d2b5a953ae</span></td></tr><tr><td><code>reasoning-20260930-052618.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.02</td><td><span class=hash>26e594d7db79743f359ba086b15184ce3c4dfa989b9979639a3036fe9117294f</span></td></tr><tr><td><code>reasoning-20260930-053111.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.06</td><td><span class=hash>9a2ee4aa4e7e2cca6df04d909cf1054712f788d44bd2880c6fca72b34027c6a1</span></td></tr><tr><td><code>reasoning-20260930-053542.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>3</td><td>$0.23</td><td><span class=hash>a851ca3e3f774c8e5e215454896c5dc2eb1ea7ace18cfc1714190fd6266a68f5</span></td></tr><tr><td><code>reasoning-20260930-054303.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.22</td><td><span class=hash>7b71239f773335792d47f0b597aaed65397ce0f3b7ede13baefd415ca28a392c</span></td></tr><tr><td><code>reasoning-20260930-054735.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.20</td><td><span class=hash>fdcbc20fa0e24c1faa50db1c7d75d9d8b389c891fabf9d9b48e23b2f0755a3be</span></td></tr><tr><td><code>reasoning-20260930-055158.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>5</td><td>0</td><td>$0.27</td><td><span class=hash>0ce198e5acc53c2cc4b70b460613f6593dfc56bfcc7e227566638da5159c5df5</span></td></tr><tr><td><code>reasoning-20260930-055800.jsonl</code></td><td>4: guided prompt, maximum reasoning, image detail high</td><td>3</td><td>1</td><td>$0.26</td><td><span class=hash>b0da927aacd2c4246cc96e2210727b77c1dfc8c0e3c3e61e749b9cdeb2aa7e56</span></td></tr></tbody></table><p class="small">Image <code>data/image/ship-the-ship-haven-travel-vacation-62f2b5-1024.jpg</code>, 1024 × 768 px, SHA-256 <span class=hash>ced1316202c50b3d6c4088e72a3c6c18e50d7c302a04365432f01b507f408fb2</span>.</p>
+</body></html>
